@@ -1,0 +1,413 @@
+;;#+STARTUP: SHOWALL
+
+* emacs基本操作
+** 文件
+   - C-x C-f 打开文件
+   - C-x C-v 切换文件
+   - C-x i   插入文件
+   - C-x C-s 保存文件
+   - C-x s   依次询问是否保存文件
+   - C-x C-w 另存为
+   - C-x C-c 关闭emacs
+** 光标控制
+   - C-v 向前移动一屏
+   - M-v 向后移动一屏
+   - C-l 重绘屏幕
+   - C-n 下一行
+   - C-p 上一行
+   - C-b 回退一个字符
+   - C-f 前进一个字符
+   - M-f 前进一个单词
+   - M-b 后退一个单词
+   - C-a 移动到行首
+   - C-e 移动到行尾
+   - M-a 移动到句首
+   - M-e 移动到句尾
+   - M-< 移动到文件开头
+   - M-> 移动到文件结尾
+   - C-u 前缀
+** 基本文本操作
+   - <DEL>   删除光标前的一个字符
+   - C-d     删除光标后的一个字符
+   - M-<DEL> 删除光标前的一个单词
+   - M-d     删除光标后的一个单词
+   - C-y     粘贴
+   - C-w     剪切
+   - M-w     复制
+   - C-k     删除光标到行尾
+   - M-k     删除光标到句尾
+   - C-@ 或 C-<SPC> 选定区域
+   - C-x C-x 交换选取端点
+   - C-x h   全选
+   - M-y     遍历kill
+   - C-q     quoted-insert 插入下一个原始字符（例如插入回车为^M)
+   - C-/     撤销
+
+** 中断当前指令
+   - C-g 中断当前指令
+** buffer指令
+   - C-x b 切换buffer
+   - C-x RIGHT 下一个buffer
+   - C-x LEFT 上一个buffer
+   - C-x C-b 显示buffer list
+   - C-x k 关闭指定buffer
+   - kill-some-buffer 依次询问是否关闭buffer
+*** buffer list中的操作
+前方符号代表的意思
+   - . 当前显示的buffer
+   - * 被修改的buffer
+   - % 只读buffer
+   - > 标记为展示
+   - D 标记为删除
+   - S 标记为保存
+操作
+   - n 或 C-n 或 SPC   下一个
+   - p 或 C-p 或 上一个
+   - 退格键 取消标记上一行，如果没有标记则移到上一行
+   - d 或 k 标记为删除
+   - x 执行标记
+   - u 取消标记
+   - s 标记为保存
+   - 1 显示这个buffer
+   - 2 在水平分割的窗口中显示此buffer
+   - f 在buffer list的位置显示此buffer
+   - o 在其他窗口位置显示此buffer
+   - ~ 标记为未修改
+   - % 标记为只读
+   - C-x C-q 切换只读状态
+   - m 标记要展示的buffer，之后按v键。emacs将显示被标记的buffer
+   - q 退出buffer list
+** 窗格指令
+   - C-x 1 只保留当前窗格
+   - C-x 2 水平分割窗口
+   - C-x 3 垂直分割窗口
+   - C-x 0 删除当前窗口
+   - C-x o 移动到下一个窗口
+   - C-x 4 f 在新窗口中打开文件
+   - C-x 4 b 在新窗口中打开buffer
+   - C-x 5 o 移动到其他frame(视窗)
+   - C-x 5 0 删除当前frame
+   - C-x 5 2 在新窗格中打开当前buffer
+   - C-x 5 f 在新窗格中打开当前文件
+   - C-x 5 r 在新窗格中以只读模式打开新文件
+   - C-x 5 b 在新窗格中打开其他buffer
+** 文本替换
+   - replace-string
+   - replace-regexp
+   - M-% 或 query-replace
+** 递归编辑状态
+   - C-M-c 或 recursive-edit 进入递归编辑状态
+   - C-] 或 abort-recursive-edit 或 top-level 退出递归状态
+** 宏
+   - F3 或 C-x (  开始定义宏
+   - F4 或 C-x )  结束宏定义
+   - F4 执行宏
+*** 编辑宏
+   - C-x C-k e 或 edit-kbd-macro 进入菜单，有如下选项
+     - C-x e 最后一个宏
+     - M-x 被命名的宏
+     - C-h l 最后100次击键作为宏
+     - 或者已经绑定到某个键的宏
+*** 切换宏
+   - C-x C-k C-d 或 kmacro-delete-ring-head 删除最近使用的一个宏
+   - C-x C-k C-t 或 kmacro-swap-ring 交换两个宏的位置
+   - C-x C-k C-p 或 kmacro-cycle-ring-previous 上一个宏
+   - C-x C-k C-n 或 kmacro-cycle-ring-next 下一个宏
+*** 将宏绑定到某个按键
+   - C-x C-k b 之后输入按键
+*** 命名，保存，执行宏
+   - C-x C-k n 或 name-last-kdb-marco 之后输入名字。使用M-x 名字来执行宏
+如果需要将宏持久化，需要打开一个文件，输入如下指令
+   - M-x insert-kbd-macro 
+之后在配置文件中添加
+(load-file "~/marco")
+然后使用
+(global-set-key "C-xC-cT" 'marconame)进行绑定
+** 矩形编辑
+  - C-x SPC 开始矩形选取
+  - C-x r t /string/ RET 或 string-rectangle 将矩形区域替换为字符
+  - C-x r N 或 rectangle-number-lines 编号
+** 自定义某个变量
+- customize-variable 之后输入变量名称
+
+** eshell
+- C-c C-c 发送C-c
+- C-c C-d 发送C-d
+* Org-mode初步
+** 配置文件
+#+BEGIN_SRC 
+;; The following lines are always needed. Choose your own keys.
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when global-font-lock-mode is on
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+#+END_SRC
+
+** 基本文字效果
+*bold*
+/italic/
++delete+
+_underline_
+=verbatim=
+~code~
+-----导出为一条分割线
+** 标题
+标题以处于一行左边缘的一个或多个星号开头
+#+BEGIN_SRC org
+ * 一级标题
+ ** 二级标题
+ *** 三级标题
+#+END_SRC
+- C-c ' 进入子编辑器
+
+*** 改变标题状态
+- TAB 循环标题状态
+- S-TAB 全局循环标题状态
+- C-u C-u C-u TAB 展开全部
+
+改变打开文件时的初始状态=#+STARTUP: content/SHOWALL=
+
+*** 在标题间移动
+- C-c C-n 下个标题
+- C-c C-p 上个标题
+- C-c C-f 下个同级标题
+- C-c C-b 上个同级标题
+- C-c C-u 回到上层标题
+
+*** 结构编辑
+- M-RET 插入同级标题，在列表中插入同级项目
+- M-S-RET 插入同级TODO标题，在列表中插入带复选框的同级项目
+- M-LEFT/RIGHT 改变当前标题等级,在列表中则改变表头符号
+- M-S-LEFT/RIGHT 改变当前标题和所有子标题等级
+- M-UP/DOWN 将子树上移/下移
+- M-S-UP/DOWN 将当前行上移/下移
+- C-c C-w 将条目或区域传送到另一个文件
+- C-x n s/w 将缓冲区视图局限为当前子树/再次放宽视图
+
+*** 稀疏树
+- C-c / 构造稀疏树.按C-c C-c取消高亮
+
+*** 列表
+无序列表以 - + * 开头
+有序列表以 1. 1) 开头
+描述列表用 :: 将项与描述隔开
+
+- TAB 折叠项
+- M-RET 插入同级别项，如果有前缀则强制新建标题
+- M-S-RET 插入带复选框的项
+- M-LEFT/RIGHT 改变项目的等级
+- M-S-LEFT/RIGHT 改变项目和子项目的等级
+- M-UP/DOWN 将项目上移/下移
+- M-S-UP/DOWN 将当前行上移/下移
+- C-c C-c 改变复选框状态，自动调整项目前符号
+- C-x - 循环改变项目符号
+
+#+BEGIN_SRC org
+list
+1. item1
+2. item2
+  + abc
+  + def
+- key1 :: qwe
+- key2 :: asd
+#+END_SRC
+
+*** 脚注
+#+BEGIN_SRC org
+footnote[fn:1]
+
+[fn:1] something here
+#+END_SRC
+
+- C-c C-x f 光标位于引用处时，跳转到定义；光标位于定义处时，跳转到第一个引用处。其他情况下，新建一个脚注。有前缀时，提供一个菜单供选择操作
+- C-c C-c 在定义和引用间跳转
+  
+** 表格
+| name  | phone | age |
+|-------+-------+-----|
+| Steve |  1234 |  11 |
+| Alex  |  2345 |  11 |
+*** 表格创建与转换
+方法一,如下输入然后按TAB
+#+BEGIN_SRC org
+|name|phone|age|
+|-
+#+END_SRC
+
+方法二,如下输入然后按C-c RET
+#+BEGIN_SRC org
+|name|phone|age
+#+END_SRC
+
+- C-c |  将活动选取转换为表，可以以TAB , 或空格分隔
+
+*** 调整与移动
+- C-c C-c 调整表格，不移动光标
+- TAB 调整表格，移到下一格，必要时新建一行
+- S-TAB 调整表格，移到上一格
+- RET 调整表格，移到下一行，必要时新建一行
+
+*** 编辑行列
+- M-LEFT/RIGHT/UP/DOWN 上/下/左/右移动行/列
+- M-S-LEFT 删除当前行
+- M-S-RIGHT 在光标右侧添加一列
+- M-S-UP 删除当前行
+- M-S-DOWN 在上侧添加一行。如果有前缀则在下面添加一行
+- C-c -  在下一行添加水平线，如果有前缀则在上面添加水平线
+- C-c RET 在下面一行添加水平线，并将光标移动到下一行
+- C-c ^ 对表进行排序
+  
+*** 列表调整
+使用 <c> <l> <r> 控制对齐方式
+使用<n> n为数字指定列宽,之后使用C-c TAB应用列宽
+| jdkg | jfkdjg | jgkdj |  fdf  |
+| <10> | <10>   |  <10> |  <1>  |
+| <c>  |        |   <r> |  <c>  |
+|------+--------+-------+-------|
+| fdjk | jfk    |   jkd |   f   |
+| fjdk | gjk    |   gjk | dadff |
+| jgk  | jgk    |   jkd |  fdf  |
+
+** 超链接
+=[[link][description]]= 
+- C-c C-l 插入链接
+- C-c C-o 打开链接
+  
+** 代办事项
+标题以TODO为开关时即成为代办事项
+- C-c C-t 循环TODO状态
+- S-RIGHT/LEST 同上
+*** 改变工作状态
+竖线为DONE状态。如果不给竖线则最后一个为DONE
+#+BEGIN_SRC 
+(setq org-todo-keywords
+      '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
+#+END_SRC
+
+多流程，键入C-c C-t时将询问一个字母
+#+BEGIN_SRC 
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "|" "DONE(d)")
+        (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")
+        (sequence "|" "CANCELED(c)")))
+#+END_SRC
+
+只在一个文件内生效。使用C-c C-c让改变生效
+#+BEGIN_SRC 
+#+TODO: TODO(t) | DONE(d)
+#+TODO: REPORT(r) BUG(b) KNOWNCAUSE(k) | FIXED(f)
+#+TODO: | CANCELED(c)
+#+END_SRC
+*** 进度日志
+记录一个时间戳或日志
+#+BEGIN_SRC 
+(setq org-log-done 'time) ;;时间戳 
+(setq org-log-done 'note) ;;日志
+#+END_SRC
+跟踪TODO变化
+#+BEGIN_SRC 
+#+TODO: TODO(t) WAIT(w@/!) | DONE(d!) CANCELED(c@)
+#+END_SRC
+*** 优先级
+- C-c , 设置优先级
+- S-UP/DOWN 改变优先级
+*** 任务细分
+在标题处键入~[/]~或是~[%]~
+#+BEGIN_SRC 
+在标题处键入[/]或是[%]
+ * 任务细分例 [1/2]
+ ** DONE 项目1 [100%]
+ *** DONE 条目
+ *** DONE 条目2
+ ** TODO 项目2 [1/2]
+   - [-] checkbox 1 [50%]
+     - [X] sub checkbox 1
+     - [ ] sub checkbox 2
+   - [X] checkbox 2
+#+END_SRC
+
+** 标签
+标签位于标题的后面，可以包含字母，数字，_ 和 @ 
+每个标签前后都有冒号，可以指定多个标签。例 :tag1:tag2:
+*** 标签继承
+标签具有继承性。子标题将会继承父标题的标签
+可以指定“零级标签”。文中所有标题都将继承此标签
+#+BEGIN_SRC 
+#+FILETAGS: :Peter:Boss:Secret:
+#+END_SRC
+
+
+*** 设置标签
+- C-c C-q 为当前标题输入标签。如果加上前缀C-u,则将buffer中所有tag对齐到org-tag-column这一列
+- C-c C-c 光标位于标题时此命令同上
+
+*** 标签列表
+#+BEGIN_SRC 
+#+TAGS: @work @home @tennisclub
+#+TAGS: laptop car pc sailboat
+
+(setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
+
+#+TAGS: @work(w) @home(h) @tennisclub(t) laptop(l) pc(p)
+#+END_SRC
+*** 标签查找
+- C-c \  用匹配标签搜索的所有标题构造一个稀疏树。带前缀参数C-u时，忽略所有还是TODO行的标题
+- C-c / m 同上
+- C-c a m 用所有议程文件匹配的标签构造一个全局列表。
+- C-c a M 用所有议程文件匹配的标签构造一个全局列表，但只搜索 TODO 项，并强制搜索所有子项
+
+搜索字符串可以使用 ‘&’ 作与运算， ‘|’ 作或运算。‘&’ 的约束力比 ‘|’ 的强。括号功能现在还没实现。用以搜索的元素可以是标签 、匹配标签的正则表达式、或者像 PROPERTY OPERATOR VALUE 这样带有比较操作符的用来比较属性值的表达式。第一个元素前面加 ‘-’ 表示不选匹配的项，加 ‘+‘ 表示选择匹配的项。使用 ’+‘ 和 ’-“ 时，与操作符 ‘&’ 就是可选的了。这里有一些只使用标签的例子。
+#+BEGIN_SRC 
+”+work-boss“               选择标有”:work:“的标题，但去掉同时也标有”:boss:“的标题。。
+”work|laptop“              选择标有”:work:“或者”:laptop:“的行。
+”work|laptop+night“        跟前面相同，但要求标有”:laptop:“和行也要标有”:night:“。
+#+END_SRC
+** 属性
+属性是一些与条目关联的键值对。它们位于一个名为 PROPERTIES 的特殊抽屉中。第一个属性都单独一行，键在前（被冒号包围），值在后
+通过设置属性 “:Xyz_ALL:” ，你可以为属性 “:Xyz:” 设置所有合法的值。这个特定的属性是有继承性的。也可以在全局设置 org-global-properties ，或者在文件级别设置
+#+BEGIN_SRC 
+  * CD collection
+    :PROPERTIES:
+    :NDisks_ALL: 1 2 3 4
+    :Publisher_ALL: "Deutsche Grammophon" Philips EMI
+    :END:
+
+#+PROPERTY: NDisks_ALL 1 2 3 4
+#+END_SRC
+
+- C-c C-x p 设置一个属性
+- C-c C-c d 从当前项中删除一个属性
+** 日期与时间
+- C-c . 插入一个时间戳。光标位于时间戳上时修改时间戳，再次使用插入时间段。使用前缀将会附带当前时间
+- C-c ! 同上，但是插入未激活的时间戳
+- S-LEFT/RIGHT 将时间戳改变一天
+- S-UP/DOWN 改变时间戳中位于光标下的项
+- C-c C-d 插入带有"DEADLINE"关键字的时间戳
+- C-c C-s 插入带有"SCHEDULED"关键字的时间戳
+*** 记录工作时间
+- C-c C-x C-i	开始当前条目的计时（clock-in）。这会插入一个 CLOCK 关键字和一个时间戳。加上 C-u 前缀，从当前已经计时的任务中选择任务。
+- C-c C-x C-o	停止计时（clock-out）。这会在开始计时的地方插入另一个时间戳。它会直接计算使用时间并插入到时间段的后面如 “=> HH:MM”。
+- C-c C-x C-e	为当前的计时任务更新进度。
+- C-c C-x C-x	取消当前的计时。当你误操作打开一个计时时，或者转而去做其他事情时，这个命令就很有用。
+- C-c C-x C-j	跳转到包含当前正在运行的计时的任务条目。用 C-uf前缀从当前计时的任务中选择。
+- C-c C-x C-r	在当前文件插入一个包含像 Org 表格一样的计时报告的动态块。当光标正处于一个存在的块上时，更新它。
+- C-c C-c	在一个已经存在的计时表格之上时，更新它。 更新动态块。光标需要置于动态块 #+BEGIN 这行。
+** 议程视图
+*** 议程文件
+议程文件存在于变量org-agenda-file中
+- C-c [ 将当前文件加入到议程文件列表中。当前文件会被加到列表的前面。如果文件已经在列表中，会被移到前面。带有前缀时，文件添加/移到到后面
+- C-c ] 将当前文件从议程文件列表中删除
+- C-,   遍历议程文件列表，依次访问其中的每一个文件
+*** 议程调度器
+按下C-c a 之后再按下列的键
+- a 日历式的议程
+- t/T TODO项列表
+- m/M 匹配标签
+- s 通过关键字匹配
+
+* elisp
+当某个文件存在时，加载这个文件
+#+begin_src emacs-lisp
+  (when (file-readable-p f) (load-file f))
+#+end_src

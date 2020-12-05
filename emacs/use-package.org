@@ -1,0 +1,46 @@
+* 记录一下 use-package 这个包的用法
+
+~:init~ 在包加载之前执行一些代码
+~:config~ 在包加载之后执行一些代码
+例子
+#+begin_src emacs-lisp
+  (use-package foo
+    :init
+    (setq foo-variable t)
+    :config
+    (foo-mode 1))
+#+end_src
+
+~:bind~ 按键绑定
+#+begin_src emacs-lisp
+  (use-package ace-jump-mode
+    :bind ("C-." . ace-jump-mode))
+#+end_src
+
+下面的代码和上面的效果相同
+#+begin_src emacs-lisp
+  (use-package ace-jump-mode
+    :commands ace-jump-mode
+    :init
+    (bind-key "C-." 'ace-jump-mode))
+#+end_src
+
+~:commands~ 创造一个自动加载。只有被用到时才开始加载
+
+~:bind~ 也支持多个绑定
+#+begin_src emacs-lisp
+  (use-package hi-lock
+    :bind (("M-o l" . highlight-lines-matching-regexp)
+	   ("M-o r" . highlight-regexp)
+	   ("M-o w" . highlight-phrase)))
+#+end_src
+
+~:defer~ 延迟加载
+~:demand~ 强制加载
+
+~:ensure~ 当一个包不存在时，下载它(很常用)
+#+begin_src emacs-lisp
+  (use-package try
+    :ensure t)
+#+end_src
+

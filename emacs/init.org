@@ -1,0 +1,338 @@
+#+STARTUP: overview
+
+* interface tweaks
+  #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+    ;; 设定起始位置
+    (set-frame-position (selected-frame) 1000 50)
+
+    ;; 关闭启动画面
+    (setq inhibit-startup-message t) 
+
+    ;; 关闭工具栏
+    (tool-bar-mode -1)
+
+    ;; 更短的yes-or-no
+    (fset 'yes-or-no-p 'y-or-n-p)
+
+    ;; 定义f5为恢复文件
+    (global-set-key (kbd "<f5>") 'revert-buffer)
+
+    ;; 改变光标样式
+    (setq-default cursor-type 'bar)
+
+    ;; 启用行号
+    (global-linum-mode 1)
+
+    ;; 关掉恼人的提示音
+    (setq ring-bell-function 'ignore)
+
+    ;; 更好的 buffer list
+    (defalias 'list-buffers 'ibuffer)
+
+    ;; 关闭自动生成备份文件
+    (setq make-backup-files nil)
+
+    ;; 默认使用UTF-8编码
+    (prefer-coding-system 'utf-8)
+
+    ;; 让M-tab能在emacs中正常工作
+    ;; (w32-register-hot-key [M-tab])
+
+    ;; 设置打开文件时的默认路径
+    (setq default-directory "~/")
+
+    ;; 自动刷新文件
+    ;; (global-auto-revert-mode t)
+  #+end_src
+* init.el
+初始化包管理器
+  #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+    (require 'package)
+    (setq package-enable-at-startup nil)
+    (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+			     ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+    (package-initialize)
+
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
+
+
+;;    (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
+  #+end_src
+
+* open this file
+将F2绑定为打开此文件，方便随时修改
+  #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+    (defun open-init-file()
+      (interactive)
+      (find-file "~/.emacs.d/init.org"))
+
+    (global-set-key (kbd "<f2>") 'open-init-file)
+  #+end_src
+
+* package
+** try
+ 暂时安装某些包，在退出emacs后会自动卸载
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+ (use-package try
+   :ensure t)  
+   #+end_src
+
+** which-key
+ 按下按键后提示你还有哪些组合键
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+ (use-package which-key
+   :ensure t
+   :config
+   (which-key-mode)
+   )  
+   #+end_src
+
+** counsel/ivy/swiper
+更加友好的emacs补全等
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+     (use-package counsel
+       :ensure t
+       :bind (("M-y" . counsel-yank-pop)
+	      :map ivy-minibuffer-map
+	      ("M-y" . ivy-next-line)
+	      )
+       )
+
+     (use-package ivy
+       :ensure t
+       :diminish (ivy-mode)
+       :bind (("C-x b" . ivy-switch-buffer)
+	      )
+       :config
+       (ivy-mode 1)
+       (setq ivy-use-virtual-buffers t)
+       (setq ivy-count-format "%d/%d")
+       (setq ivy-display-style 'fancy)
+       )
+
+     (use-package swiper
+       :ensure t
+       :bind (("C-s" . swiper-isearch)
+	      ("C-r" . swiper-isearch)
+	      ("C-c C-r" . ivy-resume)
+	      ("M-x" . counsel-M-x)
+	      ("C-x C-f" . counsel-find-file)
+	      )
+       :config
+       (progn
+	 (ivy-mode 1)
+	 (setq ivy-use-virtual-buffers t)
+	 (setq ivy-display-style 'fancy)
+	 (define-key read-expression-map (kbd "C-r") 'counsel-minibuffer-history)
+	 ))  
+   #+end_src
+
+** avy
+按键式导航
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+ (use-package avy
+   :ensure t
+   :bind ("M-s" . avy-goto-word-1))
+   #+end_src
+
+** ace-window
+更加友好的窗口跳转
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+     (use-package ace-window
+       :ensure t
+       :init
+       (progn
+	 (global-set-key [ remap other-window ] 'ace-window)
+	 (custom-set-faces
+	  '(aw-leading-char-face
+	    ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+	 ))
+
+   #+end_src
+
+** company
+自动补全
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+ (use-package company
+   :ensure t
+   :config
+   (setq company-idle-delay 0)
+   (setq company-minium-prefix-length 3)
+   (global-company-mode t)
+   )
+   #+end_src
+
+** undo tree
+可视化的撤销树，增强emacs的撤销，重做。快捷键为 C-x u
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+     (use-package undo-tree
+       :ensure t
+       :init
+       (global-undo-tree-mode))
+   #+end_src
+
+** hungry delete
+一次性删除所有空行
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+     (use-package hungry-delete
+       :ensure t
+       :config
+       (global-hungry-delete-mode))
+   #+end_src
+
+** expand-region
+逐级扩大选择区域，如果带前缀，如果前缀为0则回到原点，如果前缀为负则缩小一级
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+     (use-package expand-region
+       :ensure t
+       :config
+       (global-set-key (kbd "C-=") 'er/expand-region))
+   #+end_src
+
+** iedit
+同时编辑所有的相同单词。按键为C-;
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+     (use-package iedit
+       :ensure t)
+
+   #+end_src
+
+** magit
+git前端。
+需要自己安装git
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+  (use-package magit
+    :ensure t
+    :bind ("C-x g" . magit-status))
+    ;;:init
+    ;;(progn
+    ;;  (bind-key "C-x g" 'magit-status)
+    ;;  ))
+
+#+end_src
+** ag/wgrep
+ag,文件内容搜索。wgrep,可以直接编辑搜索的内容。默认按键C-c C-p
+需要自己安装ag。见https://github.com/ggreer/the_silver_searcher#installing
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+     (use-package ag
+       :ensure t)
+
+     (use-package wgrep
+       :ensure t)
+
+     (use-package wgrep-ag
+       :ensure t)
+
+     (require 'wgrep-ag)
+   #+end_src
+** dired
+目录操作相关
+   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+     (use-package dired-narrow
+       :ensure t
+       :config
+       (bind-key "C-c C-n" #'dired-narrow)
+       (bind-key "C-c C-f" #'dired-narrow-fuzzy)
+       (bind-key "C-x C-N" #'dired-narrow-regexp)
+       )
+
+     (use-package dired-subtree
+       :ensure t
+       :after dired
+       :config
+       (bind-key "<tab>" #'dired-subtree-toggle dired-mode-map)
+       (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
+
+   #+end_src
+
+* org
+
+  #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+
+    ;; 启用org-mode模板功能
+    (require 'org-tempo)
+
+    ;; 配置使用哪些导出
+    (require 'ox-md)
+
+    ;; 启用自动换行
+    (setq org-startup-truncated nil)
+
+#+end_src
+  
+* font
+设置字体
+  #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+    (set-face-attribute 'default nil :font "Source Code Pro semibold 12")
+    ;;(set-fontset-font t 'han "Microsoft YaHei 11" )
+    (set-fontset-font "fontset-default"
+		      'han  
+		      " -outline-微软雅黑 Light-extralight-normal-normal-sans-32-*-*-*-p-*-iso10646-1")
+  #+end_src
+* disable
+** org-bullets
+让org的标题更好看。
+   #+begin_src emacs-lisp :tangle no
+(use-package org-bullets
+       :ensure t
+       :config
+       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+   
+   #+end_src
+
+** ido mode 
+emacs自带的补全模式
+   #+begin_src emacs-lisp :tangle no
+     (setq indo-enable-flex-matching t)
+     (setq ido-everywhere t)
+     (ido-mode 1)
+
+   #+end_src
+
+** zenburn-theme
+一套主题
+  #+begin_src emacs-lisp :tangle no
+    (use-package zenburn-theme
+      :ensure t
+      :config (load-theme 'zenburn t))
+  #+end_src
+** flycheck
+拼写检查。还在配置中。
+   #+begin_src emacs-lisp :tangle no
+     (use-package flycheck
+       :ensure t
+       :init
+       (global-flycheck-mode t)
+       (setq flycheck-python-pylint-executable "c:/Users/12830/anaconda3/python.exe")
+       )
+
+   #+end_src
+** reveal.js
+   #+begin_src emacs-lisp :tangle no
+     (use-package ox-reveal
+       :ensure t
+       :config
+       (require 'ox-reveal)
+       (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
+       (setq org-reveal-mathjax t))
+   #+end_src
+** markdown-mode
+对markdown的支持
+   #+begin_src emacs-lisp :tangle no
+     (use-package markdown-mode
+       :ensure t
+       :commands (markdown-mode gfm-mode)
+       :mode (("README\\.md\\'" . gfm-mode)
+	      ("\\.md\\'" . markdown-mode)
+	      ("\\.markdown\\'" . markdown-mode))
+       :init (setq markdown-command "multimarkdown"))
+   #+end_src
+* windows home
+设定Windows下emacs启动时使用HOME路径。
+将以下内容保存为runemacs.bat并放在runemacs.exe同级目录下
+  #+begin_src sh
+    set HOME=%~dp0..\..\..\Users\12830
+    "%~dp0runemacs.exe" %*
+  #+end_src

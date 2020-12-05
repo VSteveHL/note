@@ -1,0 +1,599 @@
+# (global-set-key (kbd "C-r") 'isearch-backward)
+# (setq last-kbd-macro [?* ?  ?\C-m ?\C-y ?\C-r ?/ ?\C-m ?\C-f ?\C-@ ?\C-e ?\M-w ?\C-p ?\C-y])
+
+#+OPTIONS: toc:nil num:0 tags:nil
+
+* algorithm-exercise                                              :algorithm:
+[[https://github.com/billryan/algorithm-exercise]]
+Data Structure and Algorithm notes. 数据结构与算法/leetcode/lintcode题解/
+
+* python3-cookbook                                   :python:ebook:translate:
+https://github.com/yidao620c/python3-cookbook
+python3-cookbook的中文翻译
+
+* EarTrumpet                                               :software:windows:
+https://github.com/File-New-Project/EarTrumpet
+让你能分别控制每个应用的音量
+
+* wtfpython-cn                                             :python:translate:
+https://github.com/leisurelicht/wtfpython-cn
+wtfpython的中文翻译
+
+* TLCL                                                  :linux:cli:translate:
+https://github.com/billie66/TLCL
+The Linux Command Line 一书的中文翻译。
+
+* practical-programming-books                              :collection:ebook:
+https://github.com/EZLippi/practical-programming-books
+计算机相关书籍
+
+* free-programming-books-zh_CN                             :collection:ebook:
+https://github.com/justjavac/free-programming-books-zh_CN
+计算机相关书籍
+
+* w3-goto-world                                                       :magic:
+https://github.com/hoochanlon/w3-goto-world
+magic
+
+* awesome-python-cn                                       :python:collection:
+https://github.com/jobbole/awesome-python-cn
+Python资源大全中文版，包括：Web框架、网络爬虫、模板引擎、数据库、数据可视化、图片处理等，由伯乐在线持续更新。
+
+* hello-vim                                                             :vim:
+https://github.com/vim-china/hello-vim
+Vim 中文资源整理
+
+* LeetCodeAnimation                                               :algorithm:
+https://github.com/MisterBooo/LeetCodeAnimation
+用动画的形式呈现解LeetCode题目的思路
+
+* A-Programmers-Guide-to-English                                       :misc:
+https://github.com/yujiangshui/A-Programmers-Guide-to-English
+专为程序员编写的英语学习指南 v1.2
+
+* secbook                                               :security:collection:
+https://github.com/riusksk/secbook
+信息安全从业者书单推荐
+
+* ohmyzsh                                                   :linux:cli:shell:
+https://github.com/ohmyzsh/ohmyzsh
+A delightful community-driven (with 1700+ contributors) framework for managing your zsh configuration
+著名的oh-my-zsh配置
+
+* lshort-zh-cn                                                  :latex:ebook:
+https://github.com/CTeX-org/lshort-zh-cn
+一份不太简短的latex介绍
+
+* Mytermuxdoc                                               :doc:cli:android:
+https://github.com/myfreess/Mytermuxdoc
+中文Termux文档
+
+* Motrix                                             :software:crossplatform:
+https://github.com/agalwood/Motrix
+Motrix 是一款全能的下载工具，支持下载 HTTP、FTP、BT、磁力链等资源。
+
+* the-art-of-command-line                                        :cli:course:
+https://github.com/jlevy/the-art-of-command-line
+Master the command line, in one page
+命令行的基础操作和一些技巧
+
+* CS-Notes                                             :collection:interview:
+https://github.com/CyC2018/CS-Notes
+技术面试必备基础知识、Leetcode、计算机操作系统、计算机网络、系统设计、Java、Python、C++
+
+* algorithms                                                      :algorithm:
+https://github.com/jeffgerickson/algorithms
+Bug-tracking for Jeff's algorithms book, notes, etc
+关于算法的一本书籍
+
+* waifu2x-caffe                                            :software:windows:
+https://github.com/lltcggie/waifu2x-caffe
+机器学习图片放大
+
+* ikonate                                                             :icons:
+https://github.com/mikolajdobrucki/ikonate
+一个可在线调整的图标集
+
+* deeplearning_ai_books                                            :ebook:ml:
+https://github.com/fengdu78/deeplearning_ai_books
+吴恩达老师的深度学习课程笔记及资源
+
+* git-recipes                                                     :git:ebook:
+https://github.com/geeeeeeeeek/git-recipes
+高质量的Git中文教程 
+
+* pytorch-handbook                                          :python:ml:ebook:
+https://github.com/zergtant/pytorch-handbook
+pytorch handbook是一本开源的书籍，目标是帮助那些希望和使用PyTorch进行深度学习开发和研究的朋友快速入门，其中包含的Pytorch教程全部通过测试保证可以成功运行
+
+* Crash-Course-Computer-Science-Chinese                              :course:
+https://github.com/1c7/Crash-Course-Computer-Science-Chinese
+计算机速成课 | Crash Course 字幕组 (全40集 2018-5-1 精校完成)
+
+* vlmcsd                                                               :misc:
+https://github.com/Wind4/vlmcsd
+KMS Emulator in C (currently runs on Linux including Android, FreeBSD, Solaris, Minix, Mac OS, iOS, Windows with or without Cygwin)
+KMS模拟器
+
+* Boostnote                                          :software:crossplatform:
+https://github.com/BoostIO/Boostnote
+A markdown editor for developers on Mac, Windows and Linux.
+一个markdown编辑器
+
+* PixivBatchDownloader                                            :extension:
+https://github.com/xuejianxianzun/PixivBatchDownloader
+Chrome 扩展，批量下载 Pixiv 的插画和小说。过滤作品、下载时重命名、转换动态图片等。
+
+* ssd.pytorch                                                     :python:ml:
+https://github.com/amdegroot/ssd.pytorch
+A PyTorch Implementation of Single Shot MultiBox Detector
+一个多物体检测的代码
+
+* PytorchNetHub                                                   :python:ml:
+https://github.com/bobo0810/PytorchNetHub
+加注释的网络模型（便于理解）
+
+* frp                                                       :software:server:
+https://github.com/fatedier/frp
+frp 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS 等多种协议。可以将内网服务以安全、便捷的方式通过具有公网 IP 节点的中转暴露到公网。
+
+* pytorch-book                                              :python:ml:ebook:
+https://github.com/chenyuntc/pytorch-book
+深度学习框架PyTorch：入门与实战
+
+* trackerslist                                                :collection:bt:
+https://github.com/ngosang/trackerslist
+Updated list of public BitTorrent trackers
+bt下载所需要的tracker
+
+* ThinkPython2-CN                                              :python:ebook:
+https://github.com/bingjin/ThinkPython2-CN
+《Think Python 2e》最新版中文翻译，已完结。
+
+* linux-command                                                   :linux:cli:
+https://github.com/jaywcjlove/linux-command
+Linux命令大全搜索工具，内容包含Linux命令手册、详解、学习、搜集。
+
+* vimcdoc                                                           :vim:doc:
+https://github.com/yianwillis/vimcdoc
+Vim 中文文档计划
+
+* LaTeXPackages-CN                                                :latex:doc:
+https://github.com/latexstudio/LaTeXPackages-CN
+常用宏包说明的中文本地化项目
+
+* style2paints                                             :software:windows:
+https://github.com/lllyasviel/style2paints
+AI线稿上色
+
+* learn-regex                                                  :regex:course:
+https://github.com/ziishaned/learn-regex
+正则表达式入门
+
+* CopyTranslator                                     :software:crossplatform:
+https://github.com/CopyTranslator/CopyTranslator
+复制即翻译的外文辅助阅读翻译解决方案
+
+* pakku.js                                                        :extension:
+https://github.com/xmcp/pakku.js
+拯救B站的弹幕体验！
+
+* drawio-desktop                              :software:crossplatform:online:
+https://github.com/jgraph/drawio-desktop
+流程图绘制软件
+
+* ArchWSL                                                             :linux:
+https://github.com/yuk7/ArchWSL
+ArchLinux based WSL Distribution. Supports multiple install.
+arch版本的WSL
+
+* qBittorrent-Enhanced-Edition                    :software:crossplatform:bt:
+https://github.com/c0re100/qBittorrent-Enhanced-Edition
+qbittorrent增强客户端
+
+* marktext                                           :software:crossplatform:
+https://github.com/marktext/marktext
+一个简单而优雅的开源 Markdown 编辑器，专注于速度和可用性。
+
+* reverse-interview-zh                                            :interview:
+https://github.com/yifeikong/reverse-interview-zh
+技术面试最后反问面试官的话
+
+* numpy-cn                                                       :python:doc:
+https://github.com/teadocs/numpy-cn
+NumPy官方中文文档（完整版）
+
+* git-tips                                                       :git:course:
+https://github.com/521xueweihan/git-tips
+Git的奇技淫巧
+
+* one-python-craftsman                                        :python:course:
+https://github.com/piglei/one-python-craftsman
+来自一位 Pythonista 的编程经验分享，内容涵盖编码技巧、最佳实践与思维模式等方面
+
+* HelloGitHub                                                    :collection:
+https://github.com/521xueweihan/HelloGitHub
+分享 GitHub 上有趣、入门级的开源项目
+
+* the_new_world_linux                                          :linux:course:
+https://github.com/yangyangwithgnu/the_new_world_linux
+美丽新世界：linux 下的惬意生活
+
+* Pix-EzViewer                                             :software:android:
+https://github.com/Notsfsssf/Pix-EzViewer
+一个支持免代理直连及查看动图的第三方Pixiv android客户端（停止开发）
+
+* persepolis                                         :software:crossplatform:
+https://github.com/persepolisdm/persepolis
+Persepolis Download Manager is a GUI for aria2.
+一个aria2的GUI封装。
+
+* 30-seconds-of-python                                        :python:course:
+https://github.com/30-seconds/30-seconds-of-python
+Short Python code snippets for all your development needs
+一些有趣且实用的python片段
+
+* makegirlsmoe_web                                                   :online:
+https://github.com/makegirlsmoe/makegirlsmoe_web
+Create Anime Characters with MakeGirlsMoe
+AI生成waifu
+
+* simple_os_book                                                   :ebook:os:
+https://github.com/chyyuu/simple_os_book
+操作系统的基本原理与简单实现
+
+* new-pac                                                             :magic:
+https://github.com/Alvin9999/new-pac
+magic
+
+* tachiyomi                                                :software:android:
+https://github.com/inorichi/tachiyomi
+Free and open source manga reader for Android
+一个开源的漫画阅读器
+
+* OUCML                                                :python:ml:collection:
+https://github.com/OUCMachineLearning/OUCML
+机器学习杂项
+
+* RacketGuideInChinese                                        :racket:course:
+https://github.com/OnRoadZy/RacketGuideInChinese
+Racket指南（中文翻译）
+
+* pure-bash-bible                                          :linux:bash:shell:
+https://github.com/dylanaraps/pure-bash-bible
+ A collection of pure bash alternatives to external processes.
+纯bash实现一些功能
+
+* FPGA-SoC-Linux                                                      :linux:
+https://github.com/ikwzm/FPGA-SoC-Linux
+zybo上的linux镜像
+
+* ESP8266                                                               :doc:
+https://github.com/tttapa/ESP8266
+Documentation and help with the ESP8266 chip/boards/modules.
+一份esp8266入门指导
+
+* TeachYourselfCS-CN                                      :collection:course:
+https://github.com/keithnull/TeachYourselfCS-CN
+TeachYourselfCS 的中文翻译。自学计算机科学
+
+* chinese-poetry                                                 :collection:
+https://github.com/chinese-poetry/chinese-poetry
+最全中华古诗词数据库
+
+* GitHub-Chinese-Top-Charts                                      :collection:
+https://github.com/kon9chunkit/GitHub-Chinese-Top-Charts
+GitHub中文排行榜，帮助你发现高分优秀中文项目
+
+* awesome-spider                                          :collection:python:
+https://github.com/facert/awesome-spider
+爬虫集合
+
+* dpst-control                                                      :windows:
+https://github.com/orev/dpst-control
+Easily disable/enable Intel Display Power Saving Technology (DPST)
+开启或关闭DPST
+
+* bilibili-helper-o                                               :extension:
+https://github.com/bilibili-helper/bilibili-helper-o
+哔哩哔哩 (bilibili.com) 辅助工具，可以替换播放器、推送通知并进行一些快捷操作
+
+* PPet                                               :software:crossplatform:
+https://github.com/zenghongtu/PPet
+在你的桌面放一个萌妹子，多一点趣味~
+
+* KeymouseGo                                               :software:windows:
+https://github.com/taojy123/KeymouseGo
+类似按键精灵的鼠标键盘录制和自动化操作 模拟点击和键入
+
+* policy-templates                                                     :misc:
+https://github.com/mozilla/policy-templates
+Policy Templates for Firefox 
+firefox策略控制模板
+
+* lx-music-desktop                                   :software:crossplatform:
+https://github.com/lyswhut/lx-music-desktop
+一个基于 Electron + Vue 开发的音乐软件。
+
+* Visual-Studio-Code-Keymap-CN                                         :misc:
+https://github.com/OrwillT/Visual-Studio-Code-Keymap-CN
+Visual Studio Code Keymap in Chinese.
+中文的vscode的按键图
+
+* microservices                                                       :ebook:
+https://github.com/DocsHome/microservices
+Microservices from Design to Deployment 
+中文版《微服务：从设计到部署》
+
+* expanda                                                            :hentai:
+https://github.com/noprogramming/expanda
+熊猫书签（停止更新）另外有人fork了一份继续维护https://ex.acg.uy/
+
+* CMWTAT_Digital_Edition                                   :software:windows:
+https://github.com/TGSAN/CMWTAT_Digital_Edition
+GitHub 上最棒的开源 Win10 数字权利（数字许可证）激活工具！
+
+* EdgeTranslate                                                   :extension:
+https://github.com/EdgeTranslate/EdgeTranslate
+侧边翻译插件
+
+* gfw_whitelist                                                       :magic:
+https://github.com/breakwa11/gfw_whitelist
+magic
+
+* Awesome-Linux-Software-zh_CN                    :collection:software:linux:
+https://github.com/alim0x/Awesome-Linux-Software-zh_CN
+ 一个 Linux 上超赞的应用，软件，工具以及其它资源的集中地。
+
+* linux-command                            :linux:cli:software:crossplatform:
+https://github.com/haloislet/linux-command
+Linux 命令查询工具跨平台桌面版
+
+* Bilibili-Evolved                                                   :script:
+https://github.com/the1812/Bilibili-Evolved
+强大的哔哩哔哩增强脚本
+
+* iptv                                                           :collection:
+https://github.com/iptv-org/iptv
+Collection of 5000+ publicly available IPTV channels from all over the world 
+网络电视直播源
+
+* Captura                                                  :software:windows:
+https://github.com/MathewSachin/Captura
+一个小巧的录屏软件
+
+* python-small-examples                                              :python:
+https://github.com/jackzhenguo/python-small-examples
+告别枯燥，致力于打造 Python 富有体系且实用的小例子、小案例。
+
+* learnGitBranching                                       :git:course:online:
+https://github.com/pcottle/learnGitBranching
+An interactive git visualization to challenge and educate!
+一个交互式的、可视化的git教程
+
+* fucking-algorithm                                               :algorithm:
+https://github.com/labuladong/fucking-algorithm
+labuladong 的算法小抄
+
+* EnterpriseGconvert                                       :software:windows:
+https://github.com/kkkgo/EnterpriseGconvert
+适用于1703+的Windows 10 Enterprise G转换处理/批量激活部署程序
+
+* nbnhhsh                                                            :online:
+https://github.com/itorr/nbnhhsh
+「能不能好好说话？」 拼音首字母缩写翻译工具
+
+* grml-etc-core                                                 :linux:shell:
+https://github.com/grml/grml-etc-core
+Grmls core configuration files for zsh, vim, screen…
+grml操作系统的一些配置
+
+* Cpp-Primer                                                            :cpp:
+https://github.com/Mooophy/Cpp-Primer
+C++ Primer 5 answers
+《C++ Primer》第五版的课后题答案
+
+* interview                                                   :cpp:interview:
+https://github.com/huihut/interview
+C/C++ 技术面试基础知识总结
+
+* bash-tutorial                                           :course:bash:shell:
+https://github.com/wangdoc/bash-tutorial
+Linux 命令行 Bash 的基本用法和脚本编程
+
+* wyagd001.github.io                                                :ahk:doc:
+https://github.com/wyagd001/wyagd001.github.io
+个人主页, Autohotkey 中文帮助, 自用脚本介绍
+
+* carnac                                                   :software:windows:
+https://github.com/Code52/carnac
+按键显示
+
+* TrafficMonitor                                           :software:windows:
+https://github.com/zhongyang219/TrafficMonitor
+这是一个用于显示当前网速、CPU及内存利用率的桌面悬浮窗软件
+
+* mitmproxy                                                          :python:
+https://github.com/mitmproxy/mitmproxy
+An interactive TLS-capable intercepting HTTP proxy for penetration testers and software developers.
+一个HTTP代理工具
+
+* scrcpy                                                   :software:windows:
+https://github.com/Genymobile/scrcpy
+Display and control your Android device
+在Windows上显示并控制你的安卓手机
+
+* zh.javascript.info                                              :js:course:
+https://github.com/javascript-tutorial/zh.javascript.info
+现代 JavaScript 教程
+
+* hexo                                                               :server:
+https://github.com/hexojs/hexo
+A fast, simple & powerful blog framework, powered by Node.js.
+一个快速、简洁且高效的博客框架
+
+* imewlconverter                                     :software:crossplatform:
+https://github.com/studyzy/imewlconverter
+一款开源免费的输入法词库转换程序
+
+* Database                                                           :hentai:
+https://github.com/EhTagTranslation/Database
+EhTagTranslation 项目的翻译数据
+
+* Python-100-Days                                             :python:course:
+https://github.com/jackfrued/Python-100-Days
+Python - 100天从新手到大师
+
+* OpenCV-Python-Tutorial                                      :python:course:
+https://github.com/makelove/OpenCV-Python-Tutorial
+opencv入门教程
+
+* Learn-Vim                                                      :vim:course:
+https://github.com/iggredible/Learn-Vim
+A book for learning the Vim editor the smart way.
+一本vim书籍
+
+* Awesome                                       :collection:software:windows:
+https://github.com/Awesome-Windows/Awesome
+Windows上优质&精选的最佳应用程序及工具列表。
+
+* Algorithms-in-4-Steps                                    :algorithm:course:
+https://github.com/Xunzhuo/Algorithms-in-4-Steps
+四步从0到1系统学习算法和数据结构
+
+* awesome-cheatsheets                                            :collection:
+https://github.com/skywind3000/awesome-cheatsheets
+超级速查表 - 编程语言、框架和开发工具的速查表，单个文件包含一切你需要知道的东西
+
+* emacs-document                                               :emacs:course:
+https://github.com/lujun9972/emacs-document
+translate emacs documents to Chinese for convenient reference
+一些emacs文章的中文翻译
+
+* kali-linux-wireless-pentest-zh                             :security:ebook:
+https://github.com/apachecn/kali-linux-wireless-pentest-zh
+[译] Kali Linux 无线渗透测试入门指南 中文版
+
+* GitHubDaily                                                    :collection:
+https://github.com/GitHubDaily/GitHubDaily
+GitHubDaily 分享内容定期整理与分类。
+
+* mastering-emacs-in-one-year-guide                            :emacs:course:
+https://github.com/redguardtoo/mastering-emacs-in-one-year-guide
+Be great at emacs in one year
+一年成为Emacs高手
+
+* hello-emacs                                                  :emacs:course:
+https://github.com/emacs-china/hello-emacs
+emacs新手入门资料汇集地
+
+* Master-Emacs-From-Scratch-with-Solid-Procedures              :emacs:course:
+https://github.com/AbstProcDo/Master-Emacs-From-Scratch-with-Solid-Procedures
+步步为营，零秒精通 Emacs
+
+* gitmagic                                                       :git:course:
+https://github.com/blynn/gitmagic
+一个git入门
+
+* awesome-cpp-cn                                             :collection:cpp:
+https://github.com/jobbole/awesome-cpp-cn
+C++ 资源大全中文版，标准库、Web应用框架、人工智能、数据库、图片处理、机器学习、日志、代码分析等
+
+* zfile                                                     :software:server:
+https://github.com/zhaojun1998/zfile
+搭建自己的在线云盘
+
+* Computer-Networking-A-Top-Down-Approach-NOTES                      :course:
+https://github.com/moranzcw/Computer-Networking-A-Top-Down-Approach-NOTES
+《计算机网络－自顶向下方法》编程作业的解答和代码
+
+* ahkcompiler                                                    :ahk:online:
+https://github.com/papple23g/ahkcompiler
+AutoHotKey 語法產生器(線上網站)
+
+* Luckysheet                                                         :server:
+https://github.com/mengshukeji/Luckysheet
+Luckysheet ，一款纯前端类似excel的在线表格，功能强大、配置简单、完全开源
+
+* EhViewer                                                           :hentai:
+https://github.com/NekoInverter/EhViewer
+e站阅读器
+
+* interview-questions                                             :interview:
+https://github.com/resumejob/interview-questions
+根据超过 1500 篇真实面经整理的腾讯，阿里，字节跳动，Shopee，美团，滴滴高频面试题
+
+* pixez-flutter                                            :software:android:
+https://github.com/Notsfsssf/pixez-flutter
+一个支持免代理直连及查看动图的第三方Pixiv flutter客户端
+
+* Waifu2x-Extension-GUI                                    :software:windows:
+https://github.com/AaronFeng753/Waifu2x-Extension-GUI
+借助深度卷积神经网络对图片 & GIF & 视频进行超分辨率放大(即放大与降噪).
+
+* UserScript                                                         :script:
+https://github.com/XIU2/UserScript
+一些脚本,github下载提速
+
+* most-frequent-technology-english-words                               :misc:
+https://github.com/Wei-Xia/most-frequent-technology-english-words
+程序员工作中常见的英语词汇
+
+* EffectiveModernCppChinese                                       :ebook:cpp:
+https://github.com/kelthuzadx/EffectiveModernCppChinese
+《Effective Modern C++》翻译 - 2020更新中
+
+* HackBrowserData                                    :software:crossplatform:
+https://github.com/moonD4rk/HackBrowserData
+一款可全平台运行的浏览器数据导出解密工具。
+
+* ContextMenuManager                                       :software:windows:
+https://github.com/BluePointLilac/ContextMenuManager
+windows右键管理
+
+* unlock-music                                                       :online:
+https://github.com/ix64/unlock-music
+解锁加密的音乐，指国内音乐软件的会员格式
+
+* WebGL-Fluid-Simulation                                             :online:
+https://github.com/PavelDoGreat/WebGL-Fluid-Simulation
+生成炫酷的流体效果
+
+* emacszh-tg-configs                                                  :emacs:
+https://github.com/SteamedFish/emacszh-tg-configs
+emacszh telegram 群组成员的配置文件
+
+* using-emacs                                                         :emacs:
+https://github.com/zamansky/using-emacs
+zamansky的emacs教程的配套代码。视频在这里https://www.bilibili.com/video/av93384310
+
+* nikola                                                               :blog:
+https://github.com/getnikola/nikola
+一个静态网页博客生成器
+
+* the-craft-of-selfteaching                                          :course:
+https://github.com/selfteaching/the-craft-of-selfteaching
+自学的艺术
+
+* Easy-Hexo                                                          :course:
+https://github.com/EasyHexo/Easy-Hexo
+一份hexo建站教程
+
+* dev-fonts                                                          :online:
+https://github.com/Gaafar/dev-fonts
+在线预览各种编程字体
+
+* pomegranate                                                        :server:
+https://github.com/jmschrei/pomegranate
+一个python编写的博客生成器
+
+* git-flight-rules                                               :git:course:
+https://github.com/k88hudson/git-flight-rules
+这是一篇给宇航员（这里就是指使用Git的程序员们）的指南，用来指导问题出现后的应对之法。
+
+* Ehviewer_CN_SXJ                                                    :hentai:
+https://github.com/xiaojieonly/Ehviewer_CN_SXJ
+另一份eh客户端
+* takenote                                                           :online:
+https://github.com/taniarascia/takenote
+在线markdown编辑器

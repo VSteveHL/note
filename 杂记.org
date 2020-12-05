@@ -1,0 +1,390 @@
+杂七杂八
+* windows
+** 文件校验
+#+begin_src shell
+  certutil -hashfile yourfilename.ext MD5
+  certutil -hashfile yourfilename.ext SHA1
+  certutil -hashfile yourfilename.ext SHA256
+#+end_src
+** windows下的alias指令: doskey
+
+** 文本服务和输入语言
+设置-时间与语言-语言-拼写、键入和键盘设置(右侧)-高级键盘设置(最下端)-语言栏选项-高级键设置
+
+** intel_DPST
+导致surface亮度变化的罪魁祸首
+
+** 设置开机启动
+将应用软件生成快捷方式放入 =C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp= 文件夹。
+或者 ~win+R~,输入 ~shell:startup~
+
+* linux
+** dd显示进度
+   #+begin_src shell
+     dd if=/dev/sdb of=/ghost.img bs=4096 status=progress
+   #+end_src
+
+* vim
+** windows下gvim中文乱码
+编辑 ~_vimrc~ 文件。默认路径 =C:\Program Files\Vim=
+在文件末尾添加如下内容
+#+begin_src conf
+set encoding=utf-8
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+set guifont=consolas:h12
+#+end_src
+
+* ffmpeg
+** 剪辑指定时间
+#+begin_src sh
+ffmpeg -ss <begin_time> -i <source> -c copy -to <end_time> <out>
+#+end_src
+例：
+#+begin_src sh
+ffmpeg -ss 0 -i "[BeanSub&FZSD][Saiki Kusuo no-nan][03][GB][720P][x264_AAC].mp4" -c copy -to 89 out.mp4
+
+ffmpeg -i in.mp3 -ss 00:01:00 -t 10 -acodec copy out.mp3
+#+end_src
+
+-to指定截取末尾的时间点，-t指定截取多长时间。-t 10 表示从-ss开始向后截取10s
+
+把-ss放在-i之前，ffmpeg将会启用关键帧技术
+
+** 合并视频
+#+begin_src 
+ffmpeg -f concat -i <fileList> -c copy <out>
+eg: ffmpeg -f concat -i FileList.txt -c copy out.flv
+#+end_src
+fileList内容:
+#+begin_quote
+file '1.flv'
+file '2.flv'
+file '3.flv'
+file '4.flv'
+#+end_quote
+
+** 报错:ffmpeg unsafe file name 
+解决方法：-safe 0
+#+begin_src 
+ffmpeg -safe 0 -f concat -i FileList.txt -c copy out.flv
+#+end_src
+
+** 提取视频
+#+begin_src
+ffmpeg -i in.mp4 -vcodec copy -an out.mp4
+#+end_src
+`-i`: input  
+`-vcodec`: video code decode 视频编解码  
+`copy`: 与原视频保持相同  
+`-an`: audio no 剔除音频  
+
+** 提取音频
+   #+begin_src 
+ffmpeg -i in.mp4 -acodec copy -vn out.m4a   
+   #+end_src
+
+`-acodec`: audio code decode  
+`-vn`: video no  
+如果有多个音频，例如:
+#+begin_quote
+Stream #0:0 ......
+Stream #0:1 ......
+#+end_quote
+
+使用map参数：`-map 0:1`
+
+** ffplay快捷键
+- `q`,`ESC`: 退出  
+- `f`: 全屏  
+- `p`,`SPACE`: 暂停  
+- `w`: 显示音波音频  
+- `s`: 逐帧显示  
+- `左/右方向键`: 向后/向前10s  
+- `上/下方向键`: 向后/向前1min  
+- `鼠标右键单击`: 跳转到指定位置，根据相对宽度  
+
+** 提取一帧画面
+   #+begin_src 
+ffmpeg -i in.mp4 -ss 5 -vframes 1 img.jpg   
+   #+end_src
+`-vframe <num>`: 指定这一秒的第几帧
+
+** 添加水印
+   #+begin_src 
+ffmpeg.exe -i op.mp4 -i watermark.jpg -filter_complex "overlay=20:20" out.mp4   
+   #+end_src
+`-filter_complex`: 滤镜  
+`overlay=20:20`: 水印位置距离左侧20px，上侧20px
+
+** 制作gif
+#+begin_src 
+ffmpeg -i .\op.mp4 -ss 30 -t 2 -s 160x90 -r 15 out.gif
+#+end_src
+`-s`: 分辨率scale  
+`-r`: 帧率rate  
+
+** 视频压制
+#+begin_src 
+ffmpeg -i <input> -s 854*480 -b:v 360k <out>
+#+end_src
+`-s`: 分辨率  
+`-b:v`:    视频码率
+scale:规模，范围，等级
+* git
+** 配置多个私钥
+
+首先生成公钥私钥
+将对应公钥文件拷贝至服务器
+配置.ssh/config，如下
+#+begin_src 
+# Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host fedora
+    HostName localhost
+    User root
+    Port 2333
+    
+Host gitee.com
+	Hostname gitee.com
+    PreferredAuthentications publickey
+    IdentityFile C:\\Users\\12830\\.ssh\\id_rsa_gitee
+    User VSteveHL
+#+end_src
+
+测试是否成功
+#+begin_src sh
+ssh -T git@gitee.com
+#+end_src
+
+添加远程仓库并push
+#+begin_src sh
+git remote add origin git@gitee.com:vstevehl/mytex.git
+git push -u origin master
+#+end_src
+
+** 使后加入的.gitignore文件起作用(注意不要遗漏'.')
+#+begin_src sh
+git rm -r --cache .
+git add .
+git commit -m ".gitignore now work"
+#+end_src
+
+** `git status`文件名乱码
+#+begin_src sh
+git config --global core.quotepath false
+#+end_src
+** git 核心概念
+*** git init
+ 初始化一个git仓库
+*** git add <file> 
+ 将文件添加到暂存区(stage)
+ 使用 ~git add .~ 添加所有文件到暂存区
+*** 配置用户名称和邮箱
+ - git config --global user.name "YOUR NAME"
+ - git config --global user.email "YOUR@some-emial"
+ 如果需要在某个项目中使用不同的名称与邮箱，将--global换成--local
+*** git status
+ 查看当前目录的状态
+*** git commit -m "MESSAGE HERE"
+ 进行一次提交
+** .gitconfig的路径问题
+git init的时候，git从家目录下读取.gitconfig来进行user.name和user.email的配置。我将emacs的家目录单独设置了一个文件夹，此时使用magit进行init时便没有user的信息，commit时会报错。
+解决方法：在emacs中执行shell，然后执行git config。这样会在对应的家目录中生成.gitconfig
+** magit
+git checkout B -- filename
+对应的magit的操作为
+X f 输入分支hash 输入文件名
+输入分支hash时swiper会提示没有匹配项，直接输入就行了
+
+* latex
+** geometry宏包，版面设计
+#+begin_src latex
+\usepackage[hmargin=1.25in,vmargin=1in,includeheadfoot]{geometry}
+#+end_src
+
+landspace 横排
+
+** 计数器
+#+begin_src latex
+\renewcommand\thesection{}
+\renewcommand\thesubsection{\arabic{subsection}}
+#+end_src
+
+** 新建计数器
+#+begin_src latex
+\newcounter{<name>}
+\setcounter{<name>}{<num,可正可负>}
+\the<name> 引用值
+#+end_src
+
+** 自建宏包(类似头文件)
+- 文件以`.sty`结尾
+- 开头需要有一句`\ProvidesPackage{<name>}`, `name`与文件名保持一致
+- 源文件中使用`\usepackage{<name>}`
+
+
+** paralist宏包，表格
+compactitem，compactenum，避免了原版列表过于稀疏的问题。
+
+** 插入其他源文件内容
+- `\input{<filename>}`单纯插入文件内容
+- `\include{<filename>}`会另起一页
+- `\includeonly{<filename1>,<filename2>,...}`指定载入文件，不在此列表范围内的\include不生效
+
+** syntonly宏包
+不生成文件只排查错误，可节约编译速度。导言区如下
+#+begin_src latex
+\usepackage{syntonly}
+\syntaxonly
+#+end_src
+
+** amsmath
+`\text`指令是由该宏包提供的
+
+** 定义宏
+#+begin_src latex
+\def\ma22(#1,#2,#3,#4){$\begin{bmatrix}
+    #1 & #2 \\
+    #3 & #4 \\
+\end{bmatrix}$}
+#+end_src
+使用时`\ma22(1,2,3,4)`
+* chrome
+** quick search autofill dropdown list clear
+方法一：指向要删除的项目按Shift+Delete
+方法二：设置-清除数据-自动填充表单数据，将此项清楚（小心使用）
+* firefox
+** 禁止firefox自动更新：
+在`firefox.exe`所在目录下新建文件夹`distribution`，里面创建`policies.json`，内容为
+#+begin_src json
+{
+	"policies":{
+		"DisableAppUpdate":true
+	}
+}
+#+end_src
+操作完毕后目录应为
+#+begin_quote
+|- firefox.exe
+|- distribution
+|    |- policies.json
+|- ...
+#+end_quote
+
+如果使用的portableApps便携版本，应当在`./App/firefox`和`./App/firefox64`下都建立上述文件夹与文件
+#+begin_quote
+|- FirefoxPortable.exe
+|- App
+|    |- Firefox
+|    |    |- distribution
+|    |    |    |- policies.json
+|    |    |- ...
+|    |- Firefox64
+|    |    |- distribution
+|    |    |    |- policies.json
+|    |    |- ...
+|- Data
+|    |- ...
+|- Other
+|    |- ...
+#+end_quote
+
+** firefox插件后缀为.xpi
+
+** 禁止portableApps版本显示启动画面
+将`./Other/Source/FirefoxPortable.ini`复制到`FirefoxPortable.exe`同级目录下，并修改为`DisableSplashScreen=true`
+#+begin_quote
+|- FirefoxPortable.exe
+|- FirefoxPortable.ini
+|- ...
+#+end_quote
+* markdown
+  #+begin_src markdown
+# 标题，使用`#`
+
+标题，使用`-`
+----------
+
+末尾两个空格表示换行  
+换行
+
+空行表示换段
+
+*斜体*
+
+**粗体**
+
+***粗斜体***
+
+分割线
+***
+
+~~删除线~~
+
+<u>下划线</u>
+
+脚注[^foot]
+
+[^foot]:脚注
+
+- 无序列表
+- 无序列表
+- 无序列表
+
+1. 有序列表
+2. 有序列表
+3. 有序列表
+
+1. 嵌套列表
+    - 第一项
+    - 第二项
+2. 嵌套
+    - 嵌套
+    - 嵌套
+
+> 引用
+>> 嵌套引用
+>
+> 引用
+
+代码块
+
+`printf()`函数
+
+```C
+#include <stdio.h>
+int main()
+{
+    printf("Hello\n");
+    return 0;
+}
+```
+
+链接  
+[菜鸟教程markdown](https://www.runoob.com/markdown/md-link.html)  
+<www.baidu.com>直接使用超链接
+
+插入图片
+![git](git速查.jpg)
+
+文末网站赋值
+菜鸟教程[RUNOOB][1]
+
+[1]:https://www.runoob.com/markdown/md-image.html
+
+表格  
+|左对齐|居中|右对齐|
+|:--|:--:|--:|
+|单元格|单元格|单元格|
+|单元格|单元格|单元格|
+
+latex支持
+
+$$
+\int_1^\infty \frac{1}{x}\ \mathrm{d}x=?
+$$
+
+```python
+print("Helllo")
+```
+  #+end_src
