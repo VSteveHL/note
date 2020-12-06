@@ -1,4 +1,4 @@
-* 记录一下 use-package 这个包的用法
+* use-package
 
 ~:init~ 在包加载之前执行一些代码
 ~:config~ 在包加载之后执行一些代码
@@ -44,3 +44,12 @@
     :ensure t)
 #+end_src
 
+* magit
+** 恢复一个文件
+git checkout B -- filename
+对应的magit的操作为
+X f 输入分支hash 输入文件名
+输入分支hash时swiper会提示没有匹配项，直接输入就行了
+** git状态区切换
+使用数字键1234进行切换
+使用M-1 M-2 M-3 M-4进行全局切换

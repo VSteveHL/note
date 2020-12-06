@@ -190,12 +190,6 @@ git config --global core.quotepath false
 ** .gitconfig的路径问题
 git init的时候，git从家目录下读取.gitconfig来进行user.name和user.email的配置。我将emacs的家目录单独设置了一个文件夹，此时使用magit进行init时便没有user的信息，commit时会报错。
 解决方法：在emacs中执行shell，然后执行git config。这样会在对应的家目录中生成.gitconfig
-** magit
-git checkout B -- filename
-对应的magit的操作为
-X f 输入分支hash 输入文件名
-输入分支hash时swiper会提示没有匹配项，直接输入就行了
-
 * latex
 ** geometry宏包，版面设计
 #+begin_src latex
