@@ -66,7 +66,7 @@
   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
     (defun open-init-file()
       (interactive)
-      (find-file "~/.emacs.d/init.org"))
+      (find-file "~/note/emacs/init.org"))
 
     (global-set-key (kbd "<f2>") 'open-init-file)
   #+end_src
@@ -260,6 +260,8 @@ ag,文件内容搜索。wgrep,可以直接编辑搜索的内容。默认按键C-
     ;; 启用自动换行
     (setq org-startup-truncated nil)
 
+    ;; 时间戳
+    (global-set-key (kbd "C-c .") 'org-time-stamp)
 #+end_src
   
 * font

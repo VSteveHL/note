@@ -1,0 +1,161 @@
+记录安装步骤
+<2020-12-10 周四 14:42>
+
+* 基本安装
+** 检查引导方式
+   #+begin_src sh
+     ls /sys/firmware/efi/efivars
+   #+end_src
+
+** 联网
+*** 有线网络
+   #+begin_src sh
+     dhcpcd
+   #+end_src
+*** 无线网络
+使用 ~iwctl~ 进入iwd命令环境
+使用 ~device list~ 确定网卡名称。这里以wlan0为例
+#+begin_src sh
+  device list
+  station wlan0 scan
+  station wlan0 get-networks
+  station wlan0 connect <wifi-name>
+  quit
+#+end_src
+然后用ping来检查
+
+** 更新时间
+   #+begin_src sh
+     timedatectl set-ntp 1
+   #+end_src
+
+** 分区
+使用 ~fdisk -l~ 查看硬盘
+*** 如果硬盘不存在分区表(Disklabel type)，首先新建分区表
+- g gpt分区表
+- o MBR分区表
+*** 创建引导分区，当且仅当为EFI/GPT引导方式且没有EFI分区。如果其他硬盘存在引导分区，也不需要进行此步骤
+1. 输入 ~n~ 创建新分区。输入 ~+512M~ 来指定大小
+2. 输入 ~t~ 更改分区类型。输入 ~ef~ 将分区类型改为EFI
+3. 输入 ~p~ 来确认分区表无误。之后输入 ~w~ 写入分区表。
+4. 格式化分区。将 ~/dev/sdxY~ 替换为自己的分区
+#+begin_src sh
+  mkfs.fat -F32 /dev/sdxY
+#+end_src
+*** 创建根分区
+1. 输入 ~n~ 创建新分区。大小自定。也可回车使用默认值
+2. 输入 ~p~ 来确认分区表无误。之后输入 ~w~ 写入分区表。
+3. 格式化分区。将 ~/dev/sdxY~ 替换为自己的分区
+#+begin_src sh
+  mkfs.ext4 /dev/sdxY
+#+end_src
+
+*** 替代方案
+使用 ~cfdisk~ 获取一个带有用户文本界面的分区工具。
+*** 挂载分区
+挂载根分区。将 ~/dev/sdxY~ 换为上述分区过程中的根分区
+#+begin_src sh
+  mount /dev/sdxY /mnt
+#+end_src
+如果是EFI/GPT引导方式，需要挂载引导分区。将 ~/dev/sdxY~ 换为上述分区过程中的引导分区
+#+begin_src sh
+  mkdir /mnt/boot
+  mount /dev/sdxY /mnt/boot
+#+end_src
+** 选用最快的镜像源
+   #+begin_src sh
+     cd /etc/pacman.d
+     reflector -c China -f 5 --save mirrorlist
+   #+end_src
+也可以选择手动配置
+** 安装基本包
+可以将自己想要安装到包继续追加到命令后面
+  #+begin_src sh
+    pacstrap /mnt base base-devel linux linux-firmware dhcpcd
+  #+end_src
+** 配置Fstab
+  #+begin_src sh
+    genfstab -L /mnt >> /mnt/etc/fstab
+  #+end_src
+** Chroot
+  #+begin_src sh
+    arch-chroot /mnt
+  #+end_src
+** 设置时区
+  #+begin_src sh
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    hwclock --systohc
+  #+end_src
+** 安装自己需要的包
+  #+begin_src sh
+    pacman -S vim dialog wpa_supplicant ntfs-3g networkmanager netctl
+  #+end_src
+** 设置locale
+用vim编辑 ~locale.gen~ 之后，将 ~zh_CN.UTF-8 UTF-8~ ~zh_HK.UTF-8 UTF-8~ ~zh_TW.UTF-8 UTF-8~ ~en_US.UTF-8 UTF-8~ 取消注释
+  #+begin_src sh
+    vim /etc/locale.gen
+    locale-gen
+  #+end_src
+** 设置host
+配置hostname与hosts
+echo "hostname" > /etc/hostname
+** 设置root密码
+passwd
+** 安装intel-ucode
+** 安装bootloader
+pacman -S os-prober ntfs-3g
+*** BIOS/MBR
+  #+begin_src sh
+    pacman -S grub
+    grub-install /dev/sdx
+    grub-mkconfig -o /boot/grub/grub.cfg
+  #+end_src
+*** EFI/GPT
+   #+begin_src sh
+     pacman -S grub efibootmgr
+     grub-install
+     grub-mkconfig -o /boot/grub/grub.cfg
+   #+end_src
+之后检查对应的系统入口是否生成
+vim /boot/grub/grub.cfg
+** 结束安装，重启
+exit 退出chroot环境
+  #+begin_src sh
+    exit
+    umount /mnt/boot # 只有efi才需要
+    umount /mnt
+    reboot
+  #+end_src
+* 重启后的配置
+** 交换文件
+  #+begin_src sh
+    dd if=/dev/zero of=/swapfile bs=1M count=512 status=progress
+    chmod 600 /swapfile
+    mkswap /swapfile
+    swapon /swapfile
+  #+end_src
+之后在 ~/etc/fstab~ 里新增一句
+~/swapfile none swap default 0 0~
+** 新建用户
+~useradd -m -G whell <username>~
+~passwd <username>~
+** 配置sudo
+  #+begin_src sh
+    pacman -S sudo
+    ln -s /usr/bin/vim /usr/bin/vi
+    visudo
+  #+end_src
+去掉 ~# %wheel ALL=(ALL)ALL~ 的注释
+然后 ~reboot~ 以新用户登录，进行图形界面安装
+
+* 一些奇怪的问题
+** virtual box efi报错
+1. 输入 ~FS0~
+2. 执行 ~\EFI\arch-grub\grubx64.efi~ 进入系统
+3. ~mkdir /boot/EFI/boot~
+4. ~cp /boot/EFI/arch/grubx64.efi /boot/EFI/boot/bootx64.efi~
+** 使用grub进入cd引导
+1. 在启动界面按 ~c~ 进入 ~grub shell~
+2. ~set root=(cd0)~
+3. ~chainloader /EFI/BOOT/BOOTx64.EFI~
+4. ~boot~

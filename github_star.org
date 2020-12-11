@@ -597,3 +597,15 @@ https://github.com/xiaojieonly/Ehviewer_CN_SXJ
 * takenote                                                           :online:
 https://github.com/taniarascia/takenote
 在线markdown编辑器
+* bilitwin                                                           :script:
+https://github.com/Xmader/bilitwin
+原生B站视频下载，不借助第三方网站
+* introduction-to-bash-scripting                          :course:bash:shell:
+https://github.com/bobbyiliev/introduction-to-bash-scripting
+一份入门bash脚本的电子书
+* Stroke                                                   :software:windows:
+https://github.com/poerin/Stroke
+鼠标手势
+* AnimeGAN                                                        :python:ml:
+https://github.com/TachibanaYoshino/AnimeGAN
+将现实图片动漫画

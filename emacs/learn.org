@@ -135,6 +135,40 @@
 - C-c C-d 发送C-d
 ** 执行shell指令
 - M-! 执行shell指令。如果带有前缀，插入指令结果
+** 目录模式
+- C-x d 进入目录
+*** 删除文件
+- d 标记为删除
+- u 取消标记
+- DEL 退回到上一行，并取消该行标记
+- x 执行删除动作
+注意: emacs将文件直接删除。如果需要将文件移动至回收站，将 ~delete-by-moving-to-trash~ 设为 ~t~
+*** 访问文件
+- f 访问文件
+- RET 或 e 同上
+- o 在新window下访问文件，并移动到这个window
+- C-o 同上，但不移动
+- e 以view mode访问文件
+- ^ 前往上级目录
+**** view mode
+- SPC 向下滚动
+- S-SPC 或 DEL 向上滚动
+- q 退出view mode，回到上一个buffer
+- e 禁用view mode，开始编辑
+可使用 M-x view-buffer来进入view mode 使用 M-x view-file 指定一个file进入view mode
+*** TODO 标记文件
+- m 或 * m 标记当前文件
+- * N 报告标记了多少个文件
+- * * 标记所有可执行文件
+- * @ 标记所有符号链接
+- * / 标记所有目录，除了 . 和 ..
+- * s 标记所有文件，除了 . 和 ..
+- u 或 * u 取消标记当前文件
+- DEK 或 * DEL 退回到上一行，并取消该行标记
+- * ! 或 U 取消标记所有文件
+- 
+** 格式化json文件
+- M-x json-pretty-print-buffer
 * Org-mode初步
 ** 配置文件
 #+BEGIN_SRC 
@@ -146,7 +180,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 #+END_SRC
 
-** 基本文字效果
+** 富文本标记
 *bold*
 /italic/
 +delete+
@@ -154,6 +188,10 @@ _underline_
 =verbatim=
 ~code~
 -----导出为一条分割线
+
+- C-c C-x \ (org-toggle-pretty-entities) 使用UTF-8符号支持富文本
+- C-c C-x C_v (org-toggle-inline-images) 开启图片展示
+
 ** 标题
 标题以处于一行左边缘的一个或多个星号开头
 #+BEGIN_SRC org
@@ -318,11 +356,11 @@ footnote[fn:1]
 在标题处键入~[/]~或是~[%]~
 #+BEGIN_SRC 
 在标题处键入[/]或是[%]
- * 任务细分例 [1/2]
- ** DONE 项目1 [100%]
- *** DONE 条目
- *** DONE 条目2
- ** TODO 项目2 [1/2]
+ ,* 任务细分例 [1/2]
+ ,** DONE 项目1 [100%]
+ ,*** DONE 条目
+ ,*** DONE 条目2
+ ,** TODO 项目2 [1/2]
    - [-] checkbox 1 [50%]
      - [X] sub checkbox 1
      - [ ] sub checkbox 2
@@ -369,7 +407,7 @@ footnote[fn:1]
 属性是一些与条目关联的键值对。它们位于一个名为 PROPERTIES 的特殊抽屉中。第一个属性都单独一行，键在前（被冒号包围），值在后
 通过设置属性 “:Xyz_ALL:” ，你可以为属性 “:Xyz:” 设置所有合法的值。这个特定的属性是有继承性的。也可以在全局设置 org-global-properties ，或者在文件级别设置
 #+BEGIN_SRC 
-  * CD collection
+  ,* CD collection
     :PROPERTIES:
     :NDisks_ALL: 1 2 3 4
     :Publisher_ALL: "Deutsche Grammophon" Philips EMI
@@ -408,6 +446,11 @@ footnote[fn:1]
 - m/M 匹配标签
 - s 通过关键字匹配
 
+** 使用指令tangle文件
+   #+begin_src emacs-lisp
+     (org-babel-tangle-file (expand-file-name "~/Desktop/temp.org"))
+   #+end_src
+- M-x eval-buffer 对buffer中的所有表达式求值
 * elisp
 当某个文件存在时，加载这个文件
 #+begin_src emacs-lisp

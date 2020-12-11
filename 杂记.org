@@ -24,6 +24,8 @@
      dd if=/dev/sdb of=/ghost.img bs=4096 status=progress
    #+end_src
 
+** 修改主机名
+~hostnamectl set-hostname <new-name>~
 * vim
 ** windows下gvim中文乱码
 编辑 ~_vimrc~ 文件。默认路径 =C:\Program Files\Vim=
