@@ -132,9 +132,11 @@
 ** avy
 按键式导航
    #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
- (use-package avy
-   :ensure t
-   :bind ("M-s" . avy-goto-word-1))
+     (use-package avy
+       :ensure t
+       :bind (("M-s" . avy-goto-char-2)
+	      ("C-M-s" . avy-goto-char)
+	      ))
    #+end_src
 
 ** ace-window
@@ -187,8 +189,9 @@
    #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
      (use-package expand-region
        :ensure t
-       :config
-       (global-set-key (kbd "C-=") 'er/expand-region))
+       :bind ("C-=" . er/expand-region))
+     ;;  :config
+     ;;  (global-set-key (kbd "C-=") 'er/expand-region))
    #+end_src
 
 ** iedit
@@ -331,6 +334,31 @@ emacs自带的补全模式
 	      ("\\.markdown\\'" . markdown-mode))
        :init (setq markdown-command "multimarkdown"))
    #+end_src
+** evil
+vim 
+#+begin_src emacs-lisp :tangle no
+  (use-package evil
+    :ensure t
+    :config
+    (require 'evil)
+    (evil-mode 1))
+#+end_src
+
+*** 在插入模式中使用emacs按键
+方法一。来自[[https://stackoverflow.com/questions/26572717/evil-emacs-is-there-a-way-to-disable-vim-like-keys-in-insert-mode]]
+#+begin_src emacs-lisp
+  (require 'evil)
+  (setcdr evil-insert-state-map nil)
+  (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  (evil-mode t)
+#+end_src
+
+方法二。来自https://github.com/emacs-evil/evil/issues/1123
+#+begin_src emacs-lisp
+  (setq evil-disable-insert-state-bindings t)
+#+end_src
+之后在插入模式中使用 ~C-z~ 进行insert模式和emacs模式的切换
+
 * windows home
 设定Windows下emacs启动时使用HOME路径。
 将以下内容保存为runemacs.bat并放在runemacs.exe同级目录下

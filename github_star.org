@@ -594,18 +594,52 @@ https://github.com/k88hudson/git-flight-rules
 * Ehviewer_CN_SXJ                                                    :hentai:
 https://github.com/xiaojieonly/Ehviewer_CN_SXJ
 另一份eh客户端
+
 * takenote                                                           :online:
 https://github.com/taniarascia/takenote
 在线markdown编辑器
+
 * bilitwin                                                           :script:
 https://github.com/Xmader/bilitwin
 原生B站视频下载，不借助第三方网站
+
 * introduction-to-bash-scripting                          :course:bash:shell:
 https://github.com/bobbyiliev/introduction-to-bash-scripting
 一份入门bash脚本的电子书
+
 * Stroke                                                   :software:windows:
 https://github.com/poerin/Stroke
 鼠标手势
+
 * AnimeGAN                                                        :python:ml:
 https://github.com/TachibanaYoshino/AnimeGAN
 将现实图片动漫画
+
+* archfi                                                              :linux:
+https://github.com/MatMoul/archfi
+arch安装脚本
+
+* alis                                                                :linux:
+https://github.com/picodotdev/alis
+arch安装脚本
+
+* Qv2ray                                             :software:crossplatform:
+https://github.com/Qv2ray/Qv2ray
+跨平台V2Ray客户端
+
+* Front-End-Interview-Notebook                                    :interview:
+https://github.com/CavsZhouyou/Front-End-Interview-Notebook
+前端复习笔记
+
+* school-of-sre                                                      :course:
+https://github.com/linkedin/school-of-sre
+SRE课程。SRE是指Site Reliability Engineer (网站可靠性工程师)
+
+
+* TermuxArch                                                 :android:script:
+https://github.com/SDRausty/TermuxArch
+在termux中安装arch的脚本
+
+* ssh-tutorial                                                       :course:
+https://github.com/wangdoc/ssh-tutorial
+ssh教程

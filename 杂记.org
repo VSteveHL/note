@@ -26,6 +26,15 @@
 
 ** 修改主机名
 ~hostnamectl set-hostname <new-name>~
+** 安装字体
+首先将字体拷贝到 ~/usr/share/fonts~ 文件夹下
+#+begin_src sh
+  cd /usr/share/fonts
+  mkfontscale
+  mkfontdir
+  fc-cache
+#+end_src
+
 * vim
 ** windows下gvim中文乱码
 编辑 ~_vimrc~ 文件。默认路径 =C:\Program Files\Vim=
@@ -34,9 +43,10 @@
 set encoding=utf-8
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
-set guifont=consolas:h12
 #+end_src
-
+** windows下的gui字体配置
+~set guifont=source\ code\ pro\ semibold:h12~
+也可将其添加到 ~_vimrc~ 中
 * ffmpeg
 ** 剪辑指定时间
 #+begin_src sh
@@ -384,3 +394,82 @@ $$
 print("Helllo")
 ```
   #+end_src
+* vscode
+** vscode便携化
+下载zip形式的vscode，主要在于建立data文件夹
+#+begin_example
+|- Vscode-win32-x64-1.42.0
+|    |- Code.exe
+|    |- data
+|    |    |- user-data
+|    |    |    |- ...
+|    |    |- extensions
+|    |    |    |-...
+|    |    |- tmp(可选，建立后用于存储vscode临时文件)
+|    |- ...
+#+end_example
+在 ~Code.exe~ 同级目录下建立 ~data~ 文件夹后，将 ~%APPDATA%\Code~ 文件夹拷贝至 ~data~ 文件夹下并重命名为 ~user-data~ , ~%USERPROFILE%\.vscode\extensions~ 文件夹也拷贝至 ~data~ 文件夹下。
+
+便携版的升级方式为下载新的ZIP然后拷贝 ~data~ 文件夹
+
+** vscode与vbox虚拟机通信
+1. 设定端口转发。设置-网络-端口转发，新建规则。例
+  | 名称  | 协议 | 主机IP | 主机端口   | 子系统IP | 子系统端口 |
+  | Rule1 | TCP  |        | 2333(自定) |          |         22 |
+2. 然后设定vscode
+  安装remote-ssh插件，编辑config文件。例
+  #+begin_example
+    Host fedora
+	    HostName localhost		//此处填localhost
+	    User root
+	    Port 2333				//与端口转发设置对应
+  #+end_example
+3. 配置免密码登录
+   #+begin_src sh
+     ssh-keygen -t rsa
+     cd .ssh
+     ssh-copy-id root@localhost
+   #+end_src
+  将id_rsa复制到本地.ssh目录下
+* termux
+** 安装archlinux
+#+begin_src sh
+  cd ~
+  mkdir arch
+  pkg install proot wget openssh git
+  cd arch
+  wget https://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/os/ArchLinuxARM-aarch64-latest.tar.gz
+  wget https://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/os/ArchLinuxARM-aarch64-latest.tar.gz.md5
+  cd ~
+  git clone https://github.com/SDRausty/TermuxArch.git
+  bash termux-archlinux/setupTermuxArch.sh
+#+end_src
+启动系统的方式
+#+begin_src sh
+  cd arch
+  ./startarch
+#+end_src
+更新软件
+#+begin_src sh
+  pacman-key --init
+  pacman-key --populate archlinuxarm
+#+end_src
+** 修改警示声为无声
+摘自[[https://wiki.termux.com/wiki/Terminal_Settings]]
+The behavior of the bell character can be adjusted by setting the bell-character property. How the bell character is received can be configured in Termux with:
+#+begin_example
+  # Vibrate device (default).
+  bell-character=vibrate
+
+  # Beep with a sound.
+  bell-character=beep
+
+  # Ignore bell character.
+  bell-character=ignore
+#+end_example
+** 存储路径
+   #+begin_src sh
+     pkg install termux-tools
+     termux-set-storage
+     termux-chroot
+   #+end_src

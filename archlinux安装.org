@@ -147,7 +147,8 @@ exit 退出chroot环境
   #+end_src
 去掉 ~# %wheel ALL=(ALL)ALL~ 的注释
 然后 ~reboot~ 以新用户登录，进行图形界面安装
-
+** 桌面环境安装
+注意不要以root登录
 * 一些奇怪的问题
 ** virtual box efi报错
 1. 输入 ~FS0~

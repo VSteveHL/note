@@ -5,19 +5,21 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 CapsLock::CTRL
-^CapsLock::CapsLock
+RSHIFT & CapsLock::CapsLock
 \::BS
 BS::\
 +BS::|
 `::ESC
-LCTRL::`
-+LCTRL::~
++`::~
+RSHIFT & RALT::SendRaw, ``
+Return
 
-RSHIFT & p::Send, {UP}
+
+RSHIFT & [::Send, {UP}
 Return   
-RSHIFT & `;::Send, {DOWN}
+RSHIFT & /::Send, {DOWN}
 Return   
-RSHIFT & l::Send, {LEFT}
+RSHIFT & `;::Send, {LEFT}
 Return   
 RSHIFT & '::Send, {RIGHT}
 Return
