@@ -170,6 +170,9 @@
 - 
 ** 格式化json文件
 - M-x json-pretty-print-buffer
+** 格式化代码
+- C-x h (mark-whole-buffer)
+- C-M-\ (indent-region)
 * Org-mode初步
 ** 配置文件
 #+BEGIN_SRC 

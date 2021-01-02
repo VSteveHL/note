@@ -1,0 +1,119 @@
+#!/bin/sh
+
+# current stage3 name here
+stage3name=""
+if [[ -z $stage3name ]]
+then
+    echo "stage3name is empty"
+    exit 1
+fi
+
+
+# time
+ntpd -q -g
+
+# partition
+parted -a opt -s /dev/sda mkl gpt mkp bios 0% 3MiB mkp efi 3MiB 515MiB mkp swap 515MiB 1027MiB mkp rootfs 1027MiB 100% set 1 bios_grub on set 2 boot on
+mkfs.vfat -F32 /dev/sda2
+mkfs.ext4 /dev/sda4
+mkswap /dev/sda3
+swapon /dev/sda3
+mount /dev/sda4 /mnt/gentoo
+
+
+# get stage3
+cd /mnt/gentoo
+wget http://mirrors.163.com/gentoo/releases/amd64/autobuilds/current-stage3-amd64/$stage3name
+tar xpvf $stage3name --xattrs-include='*.*' --numeric-owner
+
+# make.conf
+makeconf=/mnt/gentoo/etc/portage/make.conf
+sed -i 's/\(COMMON_FLAGS=\)".*"/\1"-march=native -O2 -pipe"/' $makeconf
+echo 'MAKEOPTS="-j3"' >> $makeconf
+echo 'GENTOO_MIRRORS="https://mirrors.163.com/gentoo/ http://mirrors.163.com/gentoo/ https://mirrors.tuna.tsinghua.edu.cn/gentoo"' >> $makeconf
+echo 'ACCEPT_LICENSE="*"' >> $makeconf
+
+
+# ebuild
+mkdir --parents /mnt/gentoo/etc/portage/repos.conf
+cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+sed -i 's/sync-uri = .*/sync-uri = rsync:\/\/rsync1.cn.gentoo.org\/gentoo-portage/' /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+
+# DNS
+cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
+
+# mount
+mount --types proc /proc /mnt/gentoo/proc
+mount --rbind /sys /mnt/gentoo/sys
+mount --rbind /dev /mnt/gentoo/dev
+
+################################################################
+# chroot /mnt/gentoo /bin/bash
+################################################################
+
+source /etc/profile
+export PS1="(chroot) ${PS1}"
+mount /dev/sda2 /boot
+
+
+emerge-webrsync
+eselect profile list
+emerge --ask --verbose --update --deep --newuse @world
+
+# time
+echo "Asia/Shanghai" > /etc/timezone
+emerge --config sys-libs/timezone-data
+
+# locale
+echo -e "C.UTF8 UTF-8\nen_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8" > /etc/locale.gen
+locale-gen
+eselect locale list
+eselect locale set en_US.utf8
+env-update && source /etc/profile && export PS1="(chroot) ${PS1}"
+
+# kernel
+emerge --ask sys-kernel/gentoo-sources
+emerge --ask sys-apps/pciutils
+cd /usr/src/linux
+make menuconfig
+make && make modules_install
+make install
+
+emerge --ask sys-kernel/genkernel
+genkernel --install initramfs
+genkernel --lvm --mdadm --install initramfs
+ls /boot/initramfs*
+emerge --ask sys-kernel/linux-firmware
+
+################################################################
+# fstab
+################################################################
+
+
+emerge --ask --noreplace net-misc/netifrc
+
+cd /etc/init.d
+ln -s net.lo net.eth0
+rc-update add net.eth0 default
+
+emerge --ask app-admin/sysklogd
+rc-update add sysklogd default
+
+emerge --ask net-misc/dhcpcd
+emerge --ask sys-apps/mlocate
+
+rc-update add sshd default
+
+echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
+emerge --ask sys-boot/grub:2
+
+grub-install --target=x86_64-efi --efi-directory=/boot
+grub-mkconfig -o /boot/grub/grub.cfg
+exit
+
+################################################################
+
+cd
+umount -l /mnt/gentoo/dev{/shm,/pts,}
+umount -R /mnt/gentoo
+reboot

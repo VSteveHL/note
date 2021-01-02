@@ -1,5 +1,4 @@
 记录安装步骤
-<2020-12-10 周四 14:42>
 
 * 基本安装
 ** 检查引导方式
@@ -62,6 +61,22 @@
   mkdir /mnt/boot
   mount /dev/sdxY /mnt/boot
 #+end_src
+*** 使用parted进行分区
+如果要使用自动对齐，使用 ~-a opt~ 参数。例
+#+begin_src sh
+  parted -a opt /dev/sda
+#+end_src
+更多选项参看parted -a参数
+
+parted用法。具体用法参请使用 help+指令 获取帮助
+- mklabel 新建分区表
+- mkpart 新建分区
+- set 修改flag
+- rm 删除分区
+- unit 指定单位
+- select 选择磁盘
+- print 输出分区情况
+- quit 退出
 ** 选用最快的镜像源
    #+begin_src sh
      cd /etc/pacman.d
@@ -160,3 +175,53 @@ exit 退出chroot环境
 2. ~set root=(cd0)~
 3. ~chainloader /EFI/BOOT/BOOTx64.EFI~
 4. ~boot~
+** 键盘映射导致错位
+由于在Windows上使用了autohotkey修改了键位，使用vbox的时候偶尔会将原始按键发送至虚拟机内，进而会导致大写锁定卡死问题。
+替代方案: 设置端口转发，在Windows上使用SSH工具
+- 下载PuTTY. 下载地址 https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+- vbox设置端口转发 [[file:杂记.org::*vscode与vbox虚拟机通信]]
+* 自用安装脚本
+*重要：不要将该脚本用于实体机！该脚本将摧毁/dev/sda上的所有数据*
+用来在virtualbox中安装arch。适用于EFI引导
+
+#+begin_src sh :tangle ./arch_install_script.sh
+  #!/bin/sh
+  # update system clock
+  timedatectl set-ntp 1
+
+  # mirror
+  reflector --verbose -c china -f 5 --save /etc/pacman.d/mirrorlist
+
+  # partition
+  parted -a opt -s /dev/sda mkl gpt mkp boot 0% 512MiB mkp root 512MiB 100% set 1 boot on set 1 esp on
+  mkfs.vfat -F32 /dev/sda1
+  mkfs.ext4 -F /dev/sda2
+  mount /dev/sda2 /mnt
+  mkdir /mnt/boot
+  mount /dev/sda1 /mnt/boot
+
+  # install packages
+  pacstrap /mnt base base-devel linux linux-firmware dhcpcd vim man-db man-pages grub efibootmgr openssh intel-ucode
+
+  # fstab
+  genfstab -U /mnt >> /mnt/etc/fstab
+
+  # chroot
+  (
+  cat <<EOF
+  echo root:rootpasswd | chpasswd
+  ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+  hwclock -w
+  echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8\nzh_HK.UTF-8 UTF-8\nzh_TW.UTF-8 U" > /etc/locale.gen
+  locale-gen
+  echo "LANG=en_US.UTF-8" > /etc/locale.conf
+  grub-install --efi=/boot
+  grub-mkconfig -o /boot/grub/grub.cfg
+  systemctl enable sshd
+  systemctl enable dhcpcd
+  exit
+  EOF
+  ) > /mnt/temp.sh
+
+  arch-chroot /mnt /bin/bash -c "bash /temp.sh"
+#+end_src

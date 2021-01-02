@@ -26,6 +26,7 @@
 
 ** 修改主机名
 ~hostnamectl set-hostname <new-name>~
+
 ** 安装字体
 首先将字体拷贝到 ~/usr/share/fonts~ 文件夹下
 #+begin_src sh
@@ -34,6 +35,18 @@
   mkfontdir
   fc-cache
 #+end_src
+** grep过滤空行和注释行
+~cat <file> | grep -Ev "^$|#"~
+
+** GNU screen
+- ~screen -S <name>~ 新建会话
+- C-a d 分离会话
+- ~screen -r <name>~ 恢复会话
+
+** passwd提示密码太弱
+安装gentoo时出现的问题。passwd不接受弱密码
+解决方法：找到 ~/etc/security/passwdqc.conf~ 这个文件
+找到 ~enforce~ 选项，将 ~everyone~ 改为 ~none~ 
 
 * vim
 ** windows下gvim中文乱码
@@ -431,6 +444,10 @@ print("Helllo")
      ssh-copy-id root@localhost
    #+end_src
   将id_rsa复制到本地.ssh目录下
+4. 运行root登录
+配置文件为 ~/etc/ssh/sshd_config~
+修改为 ~PermitRootLogin yes~
+
 * termux
 ** 安装archlinux
 #+begin_src sh
@@ -473,3 +490,4 @@ The behavior of the bell character can be adjusted by setting the bell-character
      termux-set-storage
      termux-chroot
    #+end_src
+
