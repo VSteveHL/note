@@ -3,7 +3,7 @@
 * interface tweaks
   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
     ;; 设定起始位置
-    (set-frame-position (selected-frame) 1000 50)
+    (set-frame-position (selected-frame) 500 20)
 
     ;; 关闭启动画面
     (setq inhibit-startup-message t) 
@@ -268,13 +268,10 @@ ag,文件内容搜索。wgrep,可以直接编辑搜索的内容。默认按键C-
 #+end_src
   
 * font
-设置字体
+设置字体，字体需要自己安装。我使用的字体为source code pro和思源黑体
   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
-    (set-face-attribute 'default nil :font "Source Code Pro semibold 12")
-    ;;(set-fontset-font t 'han "Microsoft YaHei 11" )
-    (set-fontset-font "fontset-default"
-		      'han  
-		      " -outline-微软雅黑 Light-extralight-normal-normal-sans-32-*-*-*-p-*-iso10646-1")
+    (set-face-attribute 'default nil :font "Source Code Pro medium 12")
+    (set-fontset-font t 'han "思源黑体 medium 12")
   #+end_src
 * disable
 ** org-bullets
