@@ -491,3 +491,9 @@ The behavior of the bell character can be adjusted by setting the bell-character
      termux-chroot
    #+end_src
 
+* 树莓派
+** 树莓派网线直连
+1. 使用网线连接树莓派和PC
+2. 设置-网络和Internet-状态-更改适配器选项
+3. WLAN-属性-共享-允许其他网络用户...
+4. arp -a查看ip

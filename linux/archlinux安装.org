@@ -225,3 +225,10 @@ exit 退出chroot环境
 
   arch-chroot /mnt /bin/bash -c "bash /temp.sh"
 #+end_src
+* 树莓派上安装archlinuxarm 
+这部分适用于树莓派4。archlinuxarm的默认密码为 root:root alarm:alarm
+1. 下载archlinuxarm压缩包。参考地址： https://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/os/ArchLinuxARM-rpi-4-latest.tar.gz
+2. 使用fdisk分区sd卡。第一个分区类型类型设置为c，第二个保持默认的83
+3. 格式化，mkfs.vfat 和 mkfs.ext4。挂载第二个分区，新建boot，挂载第一个分区
+4. bsdtar -xpf <archlinuxarmFile> -C <mountDir>
+5. sync 结束
