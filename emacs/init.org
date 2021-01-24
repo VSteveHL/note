@@ -320,17 +320,6 @@ emacs自带的补全模式
        (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
        (setq org-reveal-mathjax t))
    #+end_src
-** markdown-mode
-对markdown的支持
-   #+begin_src emacs-lisp :tangle no
-     (use-package markdown-mode
-       :ensure t
-       :commands (markdown-mode gfm-mode)
-       :mode (("README\\.md\\'" . gfm-mode)
-	      ("\\.md\\'" . markdown-mode)
-	      ("\\.markdown\\'" . markdown-mode))
-       :init (setq markdown-command "multimarkdown"))
-   #+end_src
 ** evil
 vim 
 #+begin_src emacs-lisp :tangle no
@@ -356,6 +345,17 @@ vim
 #+end_src
 之后在插入模式中使用 ~C-z~ 进行insert模式和emacs模式的切换
 
+** markdown-mode
+对markdown的支持
+   #+begin_src emacs-lisp :tangle no
+     (use-package markdown-mode
+       :ensure t
+       :commands (markdown-mode gfm-mode)
+       :mode (("README\\.md\\'" . gfm-mode)
+	      ("\\.md\\'" . markdown-mode)
+	      ("\\.markdown\\'" . markdown-mode))
+       :init (setq markdown-command "multimarkdown"))
+   #+end_src
 * windows home
 设定Windows下emacs启动时使用HOME路径。
 将以下内容保存为runemacs.bat并放在runemacs.exe同级目录下

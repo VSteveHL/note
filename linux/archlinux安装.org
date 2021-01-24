@@ -225,10 +225,38 @@ exit 退出chroot环境
 
   arch-chroot /mnt /bin/bash -c "bash /temp.sh"
 #+end_src
-* 树莓派上安装archlinuxarm 
+* 树莓派与archlinuxarm
 这部分适用于树莓派4。archlinuxarm的默认密码为 root:root alarm:alarm
+** 安装
 1. 下载archlinuxarm压缩包。参考地址： https://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/os/ArchLinuxARM-rpi-4-latest.tar.gz
 2. 使用fdisk分区sd卡。第一个分区类型类型设置为c，第二个保持默认的83
 3. 格式化，mkfs.vfat 和 mkfs.ext4。挂载第二个分区，新建boot，挂载第一个分区
 4. bsdtar -xpf <archlinuxarmFile> -C <mountDir>
 5. sync 结束
+** 使用iwd连接到wifi
+安装iwd软件包，启用或启动 ~iwd.service~
+使用交互模式联网：
+1. 输入iwctl进入交互模式
+2. ~device list~ 列出所有设备。
+3. ~station <device> scan~ 扫描所有可用网络
+4. ~station <device> get-networks~ 列出所有可用网络
+5. ~station <deivec> connect <SSID>~
+6. 输入密码
+非交互模式：
+~iwctl --passphrase <passphrase> station <device> connect <SSID>~
+
+配置开机自动连接：
+启动 ~iwd.service~
+配置这个文件，不存在时创建
+#+begin_example
+/etc/iwd/main.conf
+--------------------------------
+[General]
+EnableNetworkConfiguration=true
+UseDefaultInterface=true
+
+[Network]
+NameResolvingService=systemd
+#+end_example
+
+

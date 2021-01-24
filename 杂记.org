@@ -48,6 +48,8 @@
 解决方法：找到 ~/etc/security/passwdqc.conf~ 这个文件
 找到 ~enforce~ 选项，将 ~everyone~ 改为 ~none~ 
 
+** journalctl清理日志
+~journalctl --vacuum-size=500M~
 * vim
 ** windows下gvim中文乱码
 编辑 ~_vimrc~ 文件。默认路径 =C:\Program Files\Vim=
