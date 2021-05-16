@@ -1,0 +1,46 @@
+dev/sda1#!/bin/sh
+# update system clock
+timedatectl set-ntp 1
+
+# mirror
+reflector --verbose -c china -f 5 --save /etc/pacman.d/mirrorlist
+
+EFIPART=""
+ROOTPART=""
+
+if [ -z $EFIPART ] || [ -z $ROOTPART ]
+then
+    exit
+fi
+
+# partition
+mkfs.vfat -F32 $EFIPART
+mkfs.ext4 -F $ROOTPART
+mount $ROOTPART /mnt
+mkdir /mnt/boot
+mount $EFIPART /mnt/boot
+
+# install packages
+pacstrap /mnt base base-devel linux linux-firmware dhcpcd vim man-db man-pages grub efibootmgr openssh intel-ucode git zsh 
+
+# fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# chroot
+(
+cat <<EOF
+echo root:rootpasswd | chpasswd
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock -w
+echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8\nzh_HK.UTF-8 UTF-8\nzh_TW.UTF-8 U" > /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+grub-install --efi=/boot
+grub-mkconfig -o /boot/grub/grub.cfg
+systemctl enable sshd
+systemctl enable dhcpcd
+exit
+EOF
+) > /mnt/temp.sh
+
+arch-chroot /mnt /bin/bash -c "bash /temp.sh"

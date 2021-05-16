@@ -635,7 +635,6 @@ https://github.com/CavsZhouyou/Front-End-Interview-Notebook
 https://github.com/linkedin/school-of-sre
 SRE课程。SRE是指Site Reliability Engineer (网站可靠性工程师)
 
-
 * TermuxArch                                                 :android:script:
 https://github.com/SDRausty/TermuxArch
 在termux中安装arch的脚本
@@ -643,3 +642,35 @@ https://github.com/SDRausty/TermuxArch
 * ssh-tutorial                                                       :course:
 https://github.com/wangdoc/ssh-tutorial
 ssh教程
+
+* AssetStudio                                              :software:windows:
+https://github.com/Perfare/AssetStudio
+unity拆包工具
+
+* aria2                                              :software:crossplatform:
+https://github.com/aria2/aria2
+下载器
+
+* missing-semester-cn.github.io                                      :course:
+https://github.com/missing-semester-cn/missing-semester-cn.github.io
+计算机教育中缺失的一课
+
+* ArtLine                                                       :software:ml:
+https://github.com/vijishmadhavan/ArtLine
+深度学习生成简笔画
+
+* unplugged                                                           :ebook:
+https://github.com/liuxinyu95/unplugged
+同构--编程中的数学
+
+* python-cheatsheet                                           :python:course:
+https://github.com/gto76/python-cheatsheet
+python技巧
+
+* sharpkeys                                                :software:windows:
+https://github.com/randyrants/sharpkeys
+按键重映射
+
+* Liberica                                           :software:crossplatform:
+https://github.com/bell-sw/Liberica
+带javaFX的openJDK

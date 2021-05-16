@@ -250,6 +250,14 @@ ag,文件内容搜索。wgrep,可以直接编辑搜索的内容。默认按键C-
 
    #+end_src
 
+** python
+*** elpy
+    #+begin_src emacs-lisp :tangel ~/.emacs.d/init.el
+      (use-package elpy
+	:ensure t
+	:init
+	(elpy-enable))
+    #+end_src
 * org
 
   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
@@ -271,7 +279,9 @@ ag,文件内容搜索。wgrep,可以直接编辑搜索的内容。默认按键C-
 设置字体，字体需要自己安装。我使用的字体为source code pro和思源黑体
   #+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
     (set-face-attribute 'default nil :font "Source Code Pro medium 12")
-    (set-fontset-font t 'han "思源黑体 medium 12")
+    (set-fontset-font t 'han "思源黑体 CN 12")
+    ;; (set-fontset-font t 'han "思源宋体 CN SemiBold 12")
+
   #+end_src
 * disable
 ** org-bullets
@@ -344,7 +354,6 @@ vim
   (setq evil-disable-insert-state-bindings t)
 #+end_src
 之后在插入模式中使用 ~C-z~ 进行insert模式和emacs模式的切换
-
 ** markdown-mode
 对markdown的支持
    #+begin_src emacs-lisp :tangle no
@@ -356,6 +365,15 @@ vim
 	      ("\\.markdown\\'" . markdown-mode))
        :init (setq markdown-command "multimarkdown"))
    #+end_src
+** auctex
+   #+begin_src emacs-lisp :tangle no
+     (use-package auctex
+       :ensure t)
+
+     (use-package company-auctex
+       :ensure t)
+   #+end_src
+
 * windows home
 设定Windows下emacs启动时使用HOME路径。
 将以下内容保存为runemacs.bat并放在runemacs.exe同级目录下

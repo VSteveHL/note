@@ -1,0 +1,12 @@
+* 安装脚本part2
+安装完桌面环境，可以正常进入之后做的一些事情
+
+- [ ] TODO [0/7]
+  - [ ] 中文字体安装
+  - [ ] wget 或是 axel，aria2
+  - [ ] gnome tweak与字体缩放设置
+  - [ ] local rtc
+  - [ ] 中文输入法，主要是rime的配置
+  - [ ] clash服务配置与开机自启
+  - [ ] numix-circle图标包安装
+  +- [ ] ustc mirror配置+

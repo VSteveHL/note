@@ -50,6 +50,10 @@
 
 ** journalctl清理日志
 ~journalctl --vacuum-size=500M~
+
+** 设定终端走代理
+~export HTTPS_PROXY=<PROXY>~
+
 * vim
 ** windows下gvim中文乱码
 编辑 ~_vimrc~ 文件。默认路径 =C:\Program Files\Vim=
